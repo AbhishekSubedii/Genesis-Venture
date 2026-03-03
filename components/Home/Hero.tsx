@@ -17,7 +17,7 @@ export default function Hero() {
       
       
 
-      <h1 className="absolute bottom-0 tracking-tight left-0 text-[60px] sm:text-[80px] md:text-[120px] lg:text-[170px] font-[PPFONT] leading-tight pb-5 md:pb-10 pl-3 md:pl-5">
+      <h1 className="absolute bottom-0 tracking-tight left-0 text-[60px] sm:text-[80px] md:text-[120px] lg:text-[170px] c pb-5 md:pb-10 pl-3 md:pl-5">
         Genesis
         <br />
         Venture, Inc.
