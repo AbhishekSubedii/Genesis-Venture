@@ -113,7 +113,7 @@ export default function NavBar() {
             Projects
           </Link>
           <Link
-            href="/Contact"
+            href="/Contacts"
             onClick={() => setIsMenuOpen(false)}
             className="text-[#1925aa] text-2xl md:text-5xl font-[PPFONT] uppercase hover:opacity-70 transition-opacity"
           >
