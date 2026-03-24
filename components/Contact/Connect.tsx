@@ -1,186 +1,192 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
 
-const Question = () => {
-  return (
-    <>
-      <form
-        className="flex flex-col gap-10 py-2"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="flex flex-col text-xs gap-y-1">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              placeholder="First Name"
-              className="flex-1 py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-            />
-          </div>
-          <div className="flex flex-col text-xs gap-y-1">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Last Name"
-              className="flex-1 py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col text-xs gap-y-1">
-          <label htmlFor="company">Email</label>
-          <input
-            type="email"
-            placeholder="johndoe@company.com"
-            className="py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-          />
-        </div>
+type Tab = "general" | "pitch";
 
-        <div className="flex flex-col text-xs gap-y-1">
-          <label htmlFor="message">Message</label>
-          <input
-            type="text"
-            name="message"
-            id="message"
-            placeholder="Message..."
-            className="py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className="py-4 bg-primary text-neutral-base font-[GT50] text-xl max-w-[150px] hover:bg-neutral-base hover:text-primary border border-primary transition-colors duration-300"
-        >
-          Send
-        </button>
-      </form>
-    </>
-  );
-};
+const inputClass =
+  "w-full bg-transparent border-b border-gray-200 py-3 text-sm text-genesis-navy font-[GT50] placeholder:text-gray-400 focus:outline-none focus:border-genesis-navy transition-colors";
 
-const Proposal = () => {
-  return (
-    <>
-      <form className="flex flex-col gap-10 py-2 ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="flex flex-col text-xs gap-y-1">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              placeholder="First Name"
-              className=" py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-            />
-          </div>
-          <div className="flex flex-col text-xs gap-y-1">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Last Name"
-              className=" py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col text-xs gap-y-1">
-          <label htmlFor="company">Email</label>
-          <input
-            type="email"
-            placeholder="johndoe@company.com"
-            className=" py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-          />
-        </div>
-        <div className="flex flex-col text-xs gap-y-1">
-          <label htmlFor="phone">Phone</label>
-          <input
-            type="number"
-            name="phone"
-            id="phone"
-            placeholder="1-212-732-0050"
-            className=" py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-          />
-        </div>
-        <div className="flex flex-col gap-y-1">
-          <label htmlFor="productDetails">Product Details</label>
-          <input
-            type="text"
-            id="productDetails"
-            placeholder="Product description..."
-            className="flex-1 py-2 border-b border-primary text-xl appearance-none bg-transparent focus:outline-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className="py-4 bg-primary text-neutral-base font-[GT50] text-xl max-w-[150px] hover:bg-neutral-base hover:text-primary border border-primary transition-colors duration-300"
-        >
-          Send
-        </button>
-      </form>
-    </>
-  );
-};
+const labelClass =
+  "text-xs uppercase tracking-widest text-gray-500 font-[GT50]";
+
+const contactDetails = [
+  { label: "General", value: "contact@genesisventures.com" },
+  { label: "Pitch", value: "founders@genesisventures.com" },
+  { label: "Phone", value: "+1 (212) 555-0100" },
+  { label: "Office", value: "Kathmandu, Nepal" },
+];
 
 export default function Connect() {
-  const [showQuestion, setShowQuestion] = useState(true);
+  const [tab, setTab] = useState<Tab>("general");
 
   return (
-    <div className="w-full min-h-screen bg-neutral-dark px-4 pb-24 relative">
-      <div className="text-primary">
-
-        <div className="absolute top-0 left-0 w-full flex justify-between items-start">
-          <p className="p-5 text-xs text-primary uppercase w-full">Contact Us</p>
-          <p className=" flex f w-full font-[GT50] justify-end p-5 text-xs text-primary">[OCI.1]</p>
+    <section className="min-h-screen w-full bg-white flex flex-col px-8 md:px-16 pt-28 pb-16">
+      {/* Top bar: title + tab switcher */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-6 gap-4">
+        <div>
+          <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+            Contact Us
+          </span>
+          <h1 className="text-2xl md:text-3xl text-genesis-navy font-[PPFONT] mt-1">
+            Get in touch.
+          </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr_6fr] lg:border-b border-primary">
-          {/* left section */}
-          <div className="flex flex-col w-full h-full gap-y-28 mr-46 pt-[15vw]">
-            <p className="
-            text-[7.2vw] lg:text-[2vw] leading-none
-            font-[PPFONT] w-full
-            lg:max-w-sm pt-6 lg:pt-0
-            ">
-              Let&apos;s connect on your next building project.
-            </p>
-            <div className="flex-col gap-5 text-xs md:text-base hidden lg:flex">
-              <p>
-                237 West 35th Street, Suite 12A <br />
-                New York, New York 10001
-              </p>
-              <p>
-                10001 1-212-732-0555 <br />
-                contact@outsourceconsultants.com
-              </p>
-            </div>
-          </div>
-
-          {/* right section */}
-          <div className="flex flex-col h-full justify-between lg:border-l border-primary text-primary lg:pb-20 lg:pl-24 pt-[14vw]">
-            <div className="flex flex-col gap-y-10 lg:gap-y-26">
-              <div className="flex gap-4 w-full justify-center lg:justify-start">
-                <button
-                  onClick={() => setShowQuestion(true)}
-                  className={`px-4 py-2 font-[GT50] text-3xl md:text-4xl lg:text-[2.8vw] tracking-tighter 
-                    ${showQuestion ? "text-primary border-b border-primary" : "text-neutral-muted opacity-30"}`}
-                >
-                  Question
-                </button>
-                <button
-                  onClick={() => setShowQuestion(false)}
-                  className={`px-4 py-2 font-[GT50] text-3xl md:text-4xl lg:text-[2.8vw] 
-                    ${!showQuestion ? "text-primary border-b border-primary" : "text-neutral-muted opacity-30"}`}
-                >
-                  Proposal
-                </button>
-              </div>
-              <div className="max-w-[700px]">
-                {showQuestion ? <Question /> : <Proposal />}
-              </div>
-            </div>
-          </div>
+        {/* Tab switcher */}
+        <div className="flex gap-0 border border-gray-200 w-fit">
+          <button
+            onClick={() => setTab("general")}
+            className={`px-6 py-2 text-xs uppercase tracking-widest font-[GT50] transition-colors ${
+              tab === "general"
+                ? "bg-genesis-navy text-white"
+                : "text-gray-500 hover:text-genesis-navy"
+            }`}
+          >
+            General
+          </button>
+          <button
+            onClick={() => setTab("pitch")}
+            className={`px-6 py-2 text-xs uppercase tracking-widest font-[GT50] transition-colors ${
+              tab === "pitch"
+                ? "bg-genesis-red text-white"
+                : "text-gray-500 hover:text-genesis-navy"
+            }`}
+          >
+            Pitch
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* Form */}
+      <div className="flex flex-col md:flex-row gap-12 md:gap-24 flex-1 pt-10">
+        <div className="md:w-2/3">
+          {tab === "general" ? (
+            <form
+              className="flex flex-col gap-8"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>First Name</label>
+                  <input
+                    type="text"
+                    placeholder="Jane"
+                    className={inputClass}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Last Name</label>
+                  <input
+                    type="text"
+                    placeholder="Smith"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Email</label>
+                <input
+                  type="email"
+                  placeholder="jane@company.com"
+                  className={inputClass}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Message</label>
+                <textarea
+                  rows={4}
+                  placeholder="How can we help?"
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-fit px-8 py-3 bg-genesis-navy text-white text-xs uppercase tracking-widest font-[GT50] hover:bg-genesis-navy-dark transition-colors"
+              >
+                Send Message
+              </button>
+            </form>
+          ) : (
+            <form
+              className="flex flex-col gap-8"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>First Name</label>
+                  <input
+                    type="text"
+                    placeholder="Jane"
+                    className={inputClass}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Last Name</label>
+                  <input
+                    type="text"
+                    placeholder="Smith"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Email</label>
+                  <input
+                    type="email"
+                    placeholder="jane@startup.com"
+                    className={inputClass}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Phone</label>
+                  <input
+                    type="tel"
+                    placeholder="+1 (212) 000-0000"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Company / Startup Name</label>
+                <input
+                  type="text"
+                  placeholder="Acme Inc."
+                  className={inputClass}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className={labelClass}>Brief Description</label>
+                <textarea
+                  rows={4}
+                  placeholder="What are you building and what stage are you at?"
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-fit px-8 py-3 bg-genesis-red text-white text-xs uppercase tracking-widest font-[GT50] hover:bg-genesis-red-dark transition-colors"
+              >
+                Submit Pitch
+              </button>
+            </form>
+          )}
+        </div>
+
+        {/* Contact details sidebar */}
+        <div className="md:w-1/3 flex flex-col justify-start gap-6 border-t md:border-t-0 md:border-l border-gray-100 pt-8 md:pt-0 md:pl-12">
+          {contactDetails.map(({ label, value }) => (
+            <div key={label} className="flex flex-col gap-1">
+              <span className="text-xs uppercase tracking-widest text-gray-400 font-[GT50]">
+                {label}
+              </span>
+              <span className="text-sm text-genesis-navy font-[GT50]">
+                {value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

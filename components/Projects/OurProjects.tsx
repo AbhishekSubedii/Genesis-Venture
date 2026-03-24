@@ -1,166 +1,282 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-interface Project {
-  title: string;
-  type:
-  | "Commercial"
-  | "Hospital"
-  | "Hotels"
-  | "Residential"
-  | "Institutions"
-  | "Retail"
-  | "Resturants";
-  imageUrl: string;
+interface Company {
+  name: string;
+  stage: string;
+  year: string;
+  description: string;
 }
 
-const projectsData: Project[] = [
+interface Sector {
+  id: string;
+  label: string;
+  tagline: string;
+  companies: Company[];
+}
+
+const sectors: Sector[] = [
   {
-    title: "Tiffany Flagship",
-    type: "Retail",
-    imageUrl: "/image5.png",
+    id: "technology",
+    label: "Technology & AI",
+    tagline:
+      "Backing software and AI companies redefining how industries operate.",
+    companies: [
+      {
+        name: "Meridian AI",
+        stage: "Series A",
+        year: "2022",
+        description: "Enterprise AI platform for supply chain optimization.",
+      },
+      {
+        name: "Stackr",
+        stage: "Seed",
+        year: "2023",
+        description: "Developer infrastructure for cloud-native applications.",
+      },
+      {
+        name: "Loopline",
+        stage: "Series B",
+        year: "2020",
+        description: "Workflow automation for mid-market operations teams.",
+      },
+      {
+        name: "Vectara",
+        stage: "Seed",
+        year: "2023",
+        description:
+          "Neural search and retrieval for enterprise knowledge bases.",
+      },
+    ],
   },
   {
-    title: "Dolce & Gabbana Boutique",
-    type: "Retail",
-    imageUrl: "/image5.png",
+    id: "healthcare",
+    label: "Healthcare & Life Sciences",
+    tagline: "Investing in companies improving patient outcomes at scale.",
+    companies: [
+      {
+        name: "Helix Health",
+        stage: "Seed",
+        year: "2023",
+        description:
+          "Digital-first primary care platform for underserved communities.",
+      },
+      {
+        name: "Vantage Bio",
+        stage: "Series A",
+        year: "2021",
+        description: "Precision oncology diagnostics using liquid biopsy.",
+      },
+      {
+        name: "Carepath",
+        stage: "Series B",
+        year: "2019",
+        description: "Care coordination software for hospital networks.",
+      },
+    ],
   },
   {
-    title: "Chick-Fil-A",
-    type: "Resturants",
-    imageUrl: "/image5.png",
+    id: "fintech",
+    label: "Financial Services",
+    tagline: "Modernizing access to capital and financial infrastructure.",
+    companies: [
+      {
+        name: "Clearpath Finance",
+        stage: "Series B",
+        year: "2021",
+        description: "Embedded lending platform for SMB marketplaces.",
+      },
+      {
+        name: "Aurum",
+        stage: "Seed",
+        year: "2022",
+        description:
+          "Automated treasury management for growth-stage companies.",
+      },
+      {
+        name: "Bridgeway",
+        stage: "Series A",
+        year: "2020",
+        description:
+          "Cross-border payments infrastructure for emerging markets.",
+      },
+    ],
   },
   {
-    title: "Dream Hotel",
-    type: "Hotels",
-    imageUrl: "/image4.png",
+    id: "realestate",
+    label: "Real Estate & Infrastructure",
+    tagline:
+      "PropTech and sustainable infrastructure for the built environment.",
+    companies: [
+      {
+        name: "Urbanbase",
+        stage: "Series A",
+        year: "2022",
+        description:
+          "AI-powered site selection and feasibility analysis for developers.",
+      },
+      {
+        name: "Gridform",
+        stage: "Seed",
+        year: "2023",
+        description: "Modular construction management platform.",
+      },
+    ],
   },
   {
-    title: "Terrace Pergola",
-    type: "Residential",
-    imageUrl: "/image1.png",
-  },
-  {
-    title: "Le Soleil",
-    type: "Hotels",
-    imageUrl: "/image2.png",
-  },
-  {
-    title: "Project 1",
-    type: "Resturants",
-    imageUrl: "/image3.png",
-  },
-  {
-    title: "Project 1",
-    type: "Commercial",
-    imageUrl: "/image4.png",
-  },
-  {
-    title: "Project 1",
-    type: "Hospital",
-    imageUrl: "/image5.png",
+    id: "consumer",
+    label: "Consumer & Retail",
+    tagline: "Next-generation consumer brands with strong unit economics.",
+    companies: [
+      {
+        name: "Forma",
+        stage: "Series A",
+        year: "2021",
+        description: "Personalized skincare brand powered by AI diagnostics.",
+      },
+      {
+        name: "Shelf",
+        stage: "Seed",
+        year: "2022",
+        description:
+          "Inventory intelligence platform for independent retailers.",
+      },
+      {
+        name: "Nouri",
+        stage: "Series B",
+        year: "2020",
+        description:
+          "Functional nutrition brand distributed across 8,000+ locations.",
+      },
+    ],
   },
 ];
 
-const projectTypes: Project["type"][] = [
-  "Commercial",
-  "Hospital",
-  "Hotels",
-  "Residential",
-  "Institutions",
-  "Retail",
-  "Resturants",
-];
+export default function OurProjects() {
+  const [activeId, setActiveId] = useState(sectors[0].id);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-// function to filter projects by type
-function filterProjectsByType(type: Project["type"]): Project[] {
-  return projectsData.filter((project) => project.type === type);
-}
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    sectors.forEach(({ id }) => {
+      const el = sectionRefs.current[id];
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveId(id);
+        },
+        { threshold: 0.5 },
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
-export default function OurProject() {
-  const [selectedType, setSelectedType] = useState<Project["type"] | null>(
-    null,
-  );
-  const displayedProjects =
-    selectedType === null ? projectsData : filterProjectsByType(selectedType);
+  const scrollTo = (id: string) => {
+    sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <div className="w-full min-h-screen px-4 bg-neutral-dark">
-      {/* header */}
-      <div className="
-        w-full min-h-[18vh] lg:min-h-[60vh] pt-7 flex flex-col justify-end
-        text-[13vw] sm:text-[24vw] lg:text-[11vw]
-        leading-tight font-[PPFONT] text-primary tracking-tight
-        border-b border-primary
-      ">
-        Our Projects
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-[2fr_4fr] lg:grid-cols-[1fr_6fr] gap-4 pt-8 relative">
-        {/* filters */}
-        <div className="flex flex-col gap-4 lg:sticky top-25 left-0 h-fit lg:pb-12">
-          <nav className="flex flex-col text-xl leading-tight font-[PPFONT] text-primary gap-y-2">
-            <button
-              onClick={() => setSelectedType(null)}
-              className={`text-left transition ${selectedType === null
-                ? "opacity-30"
-                : "hover:cursor-pointer hover:opacity-50"
-                }`}
-            >
-              All
-            </button>
-            {projectTypes.map((type) => (
+    <div className="flex w-full font-[PPFONT]">
+      {/* Sections */}
+      <div className="flex-1">
+        {/* Hero */}
+        <section className="h-screen bg-genesis-navy flex flex-col justify-between px-8 md:px-16 pt-32 pb-12">
+          <div className="flex items-start justify-between border-b border-white/10 pb-6">
+            <span className="text-xs uppercase tracking-widest text-white/40 font-[GT50]">
+              Invested Sectors
+            </span>
+          </div>
+          <div className="flex flex-col gap-4 max-w-xl">
+            <h1 className="text-4xl md:text-5xl text-white leading-tight">
+              Where we put our
+              <br />
+              <span className="text-genesis-red">capital to work.</span>
+            </h1>
+            <p className="text-sm text-white/50 font-[GT50] leading-relaxed max-w-sm">
+              We concentrate on five sectors where technology creates durable
+              competitive advantages. Each investment reflects a long-term
+              thesis, not a trend.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-4 md:gap-8 border-t border-white/10 pt-6">
+            {sectors.map(({ id, label }) => (
               <button
-                key={type}
-                onClick={() => setSelectedType(type as Project["type"])}
-                className={`text-left transition ${selectedType === type
-                  ? "opacity-50"
-                  : "hover:cursor-pointer hover:opacity-50"
-                  }`}
+                key={id}
+                onClick={() => scrollTo(id)}
+                className="text-xs text-white/50 hover:text-white font-[GT50] uppercase tracking-wider transition-colors"
               >
-                {type}
+                {label.split(" ")[0]}
               </button>
             ))}
-          </nav>
-        </div>
+          </div>
+        </section>
 
-        {/* cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-y-8 gap-x-4 mb-20 pt-8 lg:pt-0">
-          {displayedProjects.map((project, index) => {
-            const row = Math.floor(index / 3);
-            const pos = index % 3;
+        {/* Sector sections */}
+        {sectors.map(({ id, label, tagline, companies }, si) => (
+          <section
+            key={id}
+            id={id}
+            ref={(el) => {
+              sectionRefs.current[id] = el;
+            }}
+            className={`h-screen flex flex-col px-8 md:px-16 py-16 md:py-24 ${si % 2 === 0 ? "bg-white" : "bg-neutral-50"}`}
+          >
+            <div className="flex items-start justify-between border-b border-gray-200 pb-6">
+              <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+                {label}
+              </span>
+              <span className="text-xs uppercase tracking-widest text-genesis-red font-[GT50]">
+                0{si + 1}
+              </span>
+            </div>
 
-            const isBig =
-              (row % 2 === 0 && pos === 0) ||
-              (row % 2 === 1 && pos === 2);
-
-            return (
-              <div
-                key={index}
-                className={`font-[PPFONT] text-primary space-y-4 ${isBig ? "lg:col-span-2" : "lg:col-span-1"}`}
-              >
-                <div
-                  className={`relative w-full h-[200px] ${isBig ? "lg:h-[26vw]" : "lg:-[14vw]"}`}
-                >
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="h-full w-full absolute bg-primary opacity-50 inset-0 hover:opacity-0 duration-300 ease-in-out" />
+            <div className="flex flex-col md:flex-row gap-12 md:gap-24 flex-1 pt-10">
+              <div className="md:w-1/3 flex flex-col justify-between">
+                <div className="flex flex-col gap-4">
+                  <h2 className="text-2xl md:text-3xl text-genesis-navy leading-snug">
+                    {label}
+                  </h2>
+                  <p className="text-sm text-gray-600 font-[GT50] leading-relaxed">
+                    {tagline}
+                  </p>
                 </div>
-
-                <div className="space-y-1">
-                  <h2 className="text-3xl leading-none">{project.title}</h2>
-                  <p className="uppercase">{project.type}</p>
-                </div>
+                <span className="text-xs text-gray-500 font-[GT50] uppercase tracking-widest">
+                  {companies.length}{" "}
+                  {companies.length === 1 ? "company" : "companies"}
+                </span>
               </div>
-            );
-          })}
-        </div>
+
+              <div className="md:w-2/3 flex flex-col justify-center divide-y divide-gray-200">
+                {companies.map(({ name, stage, year, description }) => (
+                  <div
+                    key={name}
+                    className="flex items-start justify-between gap-6 py-4 group cursor-default"
+                  >
+                    <div className="flex flex-col gap-1">
+                      <span className="text-base text-genesis-navy font-[PPFONT] group-hover:text-genesis-red transition-colors">
+                        {name}
+                      </span>
+                      <span className="text-sm text-gray-600 font-[GT50] leading-relaxed max-w-xs">
+                        {description}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-6 shrink-0">
+                      <span className="text-sm text-gray-600 font-[GT50] uppercase hidden md:block">
+                        {stage}
+                      </span>
+                      <span className="text-sm text-gray-500 font-[GT50]">
+                        {year}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );

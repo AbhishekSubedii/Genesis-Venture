@@ -1,95 +1,92 @@
-import Image from "next/image";
+"use client";
+import { useRef } from "react";
 
 const milestones = [
   {
-    year: "1993",
-    title: "Outsource Established",
-    image: "/image1.png",
+    year: "1991",
+    title: "Founded in Kathmandu",
+    description:
+      "Established with a focus on early-stage technology companies.",
   },
   {
-    year: "1995",
-    title: "First Major Project",
-    image: "/image2.png",
-  },
-  {
-    year: "2000",
-    title: "Global Expansion",
-    image: "/image3.png",
+    year: "1998",
+    title: "First Fund Closed",
+    description:
+      "Raised $120M, backing 14 companies across tech and healthcare.",
   },
   {
     year: "2005",
-    title: "Award-Winning Innovation",
-    image: "/image4.png",
+    title: "Life Sciences Expansion",
+    description: "Launched a dedicated biotech and digital health practice.",
   },
   {
-    year: "2010",
-    title: "New Headquarters Opened",
-    image: "/image5.png",
+    year: "2012",
+    title: "Fund III — $500M",
+    description: "Largest fund to date, reflecting strong LP confidence.",
   },
   {
-    year: "2020",
-    title: "Digital Transformation",
-    image: "/image6.png",
+    year: "2018",
+    title: "Global Reach",
+    description: "Portfolio companies operating across 12 countries.",
   },
   {
-    year: "2005",
-    title: "Award-Winning Innovation",
-    image: "/image4.png",
+    year: "2024",
+    title: "Fund V Launched",
+    description:
+      "$800M in commitments, continuing our focus on transformative founders.",
   },
 ];
 
-function MilestoneItem({
-  year,
-  title,
-  image,
-}: {
-  year: string;
-  title: string;
-  image: string;
-}) {
-  return (
-    <div className="flex flex-col lg:w-[26vw] overflow-hidden pb-6 lg:pl-8 lg:pb-0">
-      <div className="relative w-[70vw] lg:w-full h-60 sm:h-72 md:h-80 lg:h-[15vw]">
-        <Image src={image} alt={title} fill className="h-auto w-auto object-cover" />
-        <div className="absolute inset-0 bg-primary opacity-50" /> {/* Blue overlay */}
-      </div>
-      <div className="mt-4 font-[PPFONT] text-primary">
-        <h1 className="text-[24vw] sm:text-4xl md:text-6xl lg:text-[5vw] leading-none font-bold">{year}</h1>
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-[1vw] uppercase font-[GT50]">{title}</p>
-      </div>
-    </div>
-  );
-}
-
 export default function Milestone() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="w-full min-h-screen flex flex-col gap-5 px-5 pt-7 overflow-hidden">
-      <div className="flex justify-between">
-        <p className="uppercase text-primary">Milestones</p>
-        <p className="uppercase text-primary">[OCI.2]</p>
+    <section className="h-screen w-full bg-neutral-50 flex flex-col px-8 md:px-16 py-16 md:py-24">
+      <div className="flex items-start justify-between border-b border-gray-200 pb-6">
+        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+          Our History
+        </span>
+        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+          03
+        </span>
       </div>
-      <div className="grid w-full min-h-[150vh] grid-cols-1 lg:grid-cols-3 lg:gap-32">
-        {milestones.map((milestone, index) => {
-          const isLastItem = index === milestones.length - 1;
-          const isOdd = index % 2 !== 0;
-          const randomOffset = index % 2 === 0 ? "lg:mt-10" : "lg:-mt-10"; // Add random vertical offset
-          return (
+
+      <div className="flex flex-col gap-10 flex-1 pt-10 justify-between">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <h2 className="text-2xl md:text-3xl text-genesis-navy leading-snug max-w-sm">
+            Three decades of disciplined investing.
+          </h2>
+          <p className="text-xs text-gray-500 font-[GT50] uppercase tracking-widest">
+            Scroll →
+          </p>
+        </div>
+
+        <div
+          ref={scrollRef}
+          className="flex gap-px bg-gray-200 overflow-x-auto scrollbar-none flex-1"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {milestones.map(({ year, title, description }) => (
             <div
-              key={index}
-              className={`w-full h-full flex flex-col py-10 justify-between border-b lg:border-b-0 lg:border-l border-primary 
-                ${isLastItem ? "lg:col-span-3 lg:place-items-center border-b-0" : randomOffset}
-                ${isOdd ? "place-items-end lg:place-items-start" : ""}
-                `}
+              key={year}
+              className="bg-white flex flex-col justify-between p-6 md:p-8 min-w-[220px] md:min-w-[260px] flex-1"
             >
-              <MilestoneItem
-                year={milestone.year}
-                title={milestone.title}
-                image={milestone.image}
-              />
+              <span className="text-sm text-genesis-red font-[GT50] uppercase tracking-widest">
+                {year}
+              </span>
+              <div className="flex flex-col gap-2 mt-auto">
+                <div className="w-4 h-px bg-genesis-navy mb-3" />
+                <span className="text-base text-genesis-navy font-[PPFONT] leading-snug">
+                  {title}
+                </span>
+                <span className="text-sm text-gray-600 font-[GT50] leading-relaxed">
+                  {description}
+                </span>
+              </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

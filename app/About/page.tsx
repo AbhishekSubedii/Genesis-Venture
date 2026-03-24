@@ -1,15 +1,15 @@
 import Hero from "@/components/About/Hero";
-import LeadershipPage from "@/components/About/Leadership";
+import Mission from "@/components/About/Mission";
 import Milestone from "@/components/About/Milestone";
-import { Mission } from "@/components/About/Mission";
+import Leadership from "@/components/About/Leadership";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-neutral-dark">
+    <main className="w-full font-[PPFONT]">
       <Hero />
       <Mission />
       <Milestone />
-      <LeadershipPage />
-    </div>
+      <Leadership />
+    </main>
   );
 }

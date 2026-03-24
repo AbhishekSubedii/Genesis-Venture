@@ -1,46 +1,36 @@
 import Image from "next/image";
 
-interface leadershipProps {
+interface Member {
   name: string;
   title: string;
   imageURL: string;
 }
 
-const Leadership: leadershipProps[] = [
+const team: Member[] = [
   {
     name: "Anthony Roselli",
-    title: "Principal",
+    title: "Managing Partner",
     imageURL: "/images/leadership/anthony-roselli.avif",
   },
   {
     name: "Joseph Roselli",
-    title: "Principal",
+    title: "General Partner",
     imageURL: "/images/leadership/joseph-roselli.avif",
   },
   {
     name: "Diego Caballero",
-    title: "Principal",
+    title: "General Partner",
     imageURL: "/images/leadership/diego-caballero.avif",
   },
   {
     name: "Mithun Islam",
-    title: "Principal",
+    title: "Partner",
     imageURL: "/images/leadership/mithun-islam.avif",
   },
   {
     name: "Scott Walker",
-    title: "Associate Principal",
+    title: "Principal",
     imageURL: "/images/leadership/scott-walker.avif",
-  },
-  {
-    name: "Adele Perrera, AIA, NCARB",
-    title: "Code & Zoning Analyst",
-    imageURL: "/images/leadership/adele-perrera.avif",
-  },
-  {
-    name: "Alejandra Sepulveda",
-    title: "Project Executive",
-    imageURL: "/images/leadership/alejandra-sepulveda.avif",
   },
   {
     name: "Angie Silva",
@@ -53,46 +43,61 @@ const Leadership: leadershipProps[] = [
     imageURL: "/images/leadership/carlos-duque.avif",
   },
   {
-    name: "David Burgos",
-    title: "Manager of permit services",
-    imageURL: "/images/leadership/david-burgos.avif",
-  },
-  {
-    name: "Rafael Rolon",
-    title: "Project Executive",
-    imageURL: "/images/leadership/rafael-rolon.avif",
-  },
-  {
     name: "Kaela Fanning",
-    title: "Director of Marketing",
+    title: "Director, Marketing",
     imageURL: "/images/leadership/kaela-fanning.avif",
   },
 ];
 
-export default function LeadershipPage() {
+export default function Leadership() {
   return (
-    <div className="w-full min-h-screen flex flex-col gap-12 lg:gap-16 bg-neutral-base">
-      <h2 className="text-[18vw] lg:text-[11vw] text-primary leading-none lg:leading-[10.2vw] pt-14 lg:pt-32 tracking-tight font-bold px-4">
-        Leadership <br /> Board
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-5 text-primary mb-10">
-        {Leadership.map((member, index) => (
-          <div key={index} className="flex flex-col gap-3 mb-10">
-            <Image
-              src={member.imageURL}
-              alt={member.name}
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
-            />
-            <div className="space-y-1">
-              <h3 className="text-2xl">{member.name}</h3>
-              <p className="uppercase text-lg">{member.title}</p>
+    <section className="min-h-screen w-full bg-white flex flex-col px-8 md:px-16 py-16 md:py-24">
+      <div className="flex items-start justify-between border-b border-gray-200 pb-6 mb-10">
+        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+          Leadership
+        </span>
+        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+          04
+        </span>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-12">
+        <div className="md:w-1/3">
+          <h2 className="text-2xl md:text-3xl text-genesis-navy leading-snug">
+            The team behind the portfolio.
+          </h2>
+          <p className="text-sm text-gray-600 font-[GT50] leading-relaxed mt-4 max-w-xs">
+            Experienced operators and investors who have built, scaled, and
+            exited companies across every major sector.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
+        {team.map(({ name, title, imageURL }) => (
+          <div
+            key={name}
+            className="bg-white flex flex-col group overflow-hidden"
+          >
+            <div className="relative w-full aspect-3/4 overflow-hidden">
+              <Image
+                src={imageURL}
+                alt={name}
+                fill
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+            <div className="p-4 flex flex-col gap-0.5">
+              <span className="text-sm text-genesis-navy font-[PPFONT]">
+                {name}
+              </span>
+              <span className="text-xs text-gray-400 uppercase tracking-widest font-[GT50]">
+                {title}
+              </span>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

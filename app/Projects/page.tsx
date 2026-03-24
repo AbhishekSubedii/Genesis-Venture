@@ -1,9 +1,5 @@
-import OurProject from "@/components/Projects/OurProjects";
+import OurProjects from "@/components/Projects/OurProjects";
 
 export default function Projects() {
-  return (
-    <>
-      <OurProject />
-    </>
-  );
+  return <OurProjects />;
 }

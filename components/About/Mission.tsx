@@ -1,33 +1,66 @@
-export function Mission() {
+const values = [
+  {
+    title: "Conviction",
+    description:
+      "We back founders others overlook — early, decisively, and with full commitment.",
+  },
+  {
+    title: "Partnership",
+    description:
+      "We sit alongside our founders through every stage, not just at the term sheet.",
+  },
+  {
+    title: "Integrity",
+    description:
+      "Transparent communication and honest counsel, even when it's difficult.",
+  },
+  {
+    title: "Long-term thinking",
+    description: "We measure success in decades, not quarters.",
+  },
+];
+
+export default function Mission() {
   return (
-    <div className="w-full pt-7 px-5 relative">
-      <div className="border-t border-b border-primary flex flex-col lg:flex-row lg:h-screen">
+    <section className="h-screen w-full bg-white flex flex-col px-8 md:px-16 py-16 md:py-24">
+      <div className="flex items-start justify-between border-b border-gray-200 pb-6">
+        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+          Mission & Values
+        </span>
+        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+          02
+        </span>
+      </div>
 
-        {/* mission statement */}
-        <div className="absolute top-5 left-0 w-full flex justify-between items-start">
-          <p className="p-5 text-sm text-primary uppercase w-full">Mission Statement</p>
-          <p className=" flex w-full font-[GT50] justify-end p-5 text-sm text-primary">[OCI.1]</p>
+      <div className="flex flex-col md:flex-row gap-12 md:gap-24 flex-1 pt-10">
+        <div className="md:w-1/3 flex flex-col justify-between">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-2xl md:text-3xl text-genesis-navy leading-snug">
+              Our mission is to back the builders who change industries.
+            </h2>
+            <p className="text-sm text-gray-600 font-[GT50] leading-relaxed">
+              We invest at the intersection of ambition and execution — where a
+              founder's vision meets the discipline to see it through.
+            </p>
+          </div>
         </div>
 
-        {/* only desktop mode */}
-        <div className="uppercase lg:w-200 relative font-[GT50] text-primary lg:border-r border-primary hidden lg:block">
-          <h1 className="absolute font-[PPFONT] bg-neutral-dark whitespace-nowrap top-1/2 -translate-y-1/2 text-[11vw]">
-            Our Vision
-          </h1>
-        </div>
-
-        <div className="flex flex-col h-full items-start justify-end lg:justify-between gap-y-10 py-20 lg:pl-10 w-full uppercase lg:normal-case">
-          <h1 className="uppercase font-[PPFONT] whitespace-nowrap text-[15vw] lg:text-[11vw] text-center w-full text-primary lg:hidden pt-8 font-bold">
-            Our Vision
-          </h1>
-          <p className="tracking-normal text-primary font-[GT50] max-w-xs md:max-w-md lg:max-w-[20vw] text-base lg:text-[1vw] leading-5 lg:leading-[1.2vw]">
-            To lead as the most trusted advocate for designers and builders across New York City and beyond, setting the standard for expertise, partnership, and excellence in every project we support.
-          </p>
-          <p className="tracking-normal text-primary font-[GT50] max-w-xs md:max-w-md lg:max-w-[20vw] text-base lg:text-[1vw] leading-5 lg:leading-[1vw]">
-            Our vision is to help shape the landscape and skyline of our never-resting city while respecting and supporting the laws that govern and regulate construction.
-          </p>
+        <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100">
+          {values.map(({ title, description }) => (
+            <div
+              key={title}
+              className="bg-white p-6 md:p-8 flex flex-col gap-3"
+            >
+              <span className="text-xs uppercase tracking-widest text-genesis-red font-[GT50]">
+                {title}
+              </span>
+              <p className="text-sm text-gray-600 font-[GT50] leading-relaxed">
+                {description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

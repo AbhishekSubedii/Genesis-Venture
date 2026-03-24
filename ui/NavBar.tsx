@@ -1,180 +1,136 @@
 "use client";
-import { Menu, X } from "lucide-react";
-import Image from "next/image";
-import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/About" },
+  { label: "Invested Sectors", href: "/Projects" },
+  { label: "Contact Us", href: "/Contacts" },
+];
+
+const sectors = [
+  { label: "Technology & AI", id: "technology" },
+  { label: "Healthcare & Life Sciences", id: "healthcare" },
+  { label: "Financial Services", id: "fintech" },
+  { label: "Real Estate & Infrastructure", id: "realestate" },
+  { label: "Consumer & Retail", id: "consumer" },
+];
 
 export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Prevent scrolling when menu is open
+  const pathname = usePathname();
+  const isProjects = pathname === "/Projects";
+  const [activeId, setActiveId] = useState(sectors[0].id);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
-    if (isMenuOpen) {
-      // Prevent scroll on body
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-      // For touch devices
-      // Fixed position to prevent iOS bounce scroll
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
-      document.body.style.top = `-${window.scrollY}px`;
-    } else {
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-      document.body.style.touchAction = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-      document.body.style.top = "";
-      // Restore scroll position
-      window.scrollTo(0, parseInt(scrollY || "0") * -1);
-    }
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-      document.body.style.touchAction = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-      document.body.style.top = "";
-    };
-  }, [isMenuOpen]);
-  const navigateHome = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (menuOpen) setMenuOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isProjects) return;
+    const observers: IntersectionObserver[] = [];
+    sectors.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveId(id);
+        },
+        { threshold: 0.5 },
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, [isProjects]);
+
+  const handleSectorClick = (id: string) => {
+    setActiveId(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
   return (
-    <>
-      <div className="flex items-center  justify-between fixed top-0 left-0 right-0 z-100 p-3 md:p-5">
-        <Link
-          href={"/"}
-          onClick={() => setIsMenuOpen(false)}
-          className="bg-primary-light text-white flex items-center gap-2 md:gap-4 justify-center px-2 md:px-10 py-2"
-        >
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={30}
-            height={30}
-            className="md:w-[50px] md:h-[50px]"
-          />
-          <p className="font-semithin text-xs md:text-xl">
-            GENESIS VENTURE INC.
-          </p>
+    <div className="fixed top-0 left-0 right-0 z-100 flex flex-col">
+      {/* Main navbar */}
+      <nav className="flex items-center justify-between px-8 md:px-16 py-4 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <Link href="/" className="flex flex-col leading-none select-none">
+          <span className="text-2xl font-bold tracking-tight text-genesis-navy font-[PPFONT]">
+            genes<span className="text-genesis-red">i</span>s
+          </span>
+          <span
+            className="text-sm text-end font-normal tracking-widest text-genesis-red font-[GT50]"
+            style={{ marginTop: "-2px" }}
+          >
+            ventures
+          </span>
         </Link>
 
+        {/* Desktop links */}
+        <ul className="hidden md:flex items-center gap-8">
+          {navLinks.map(({ label, href }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className={`text-xs uppercase tracking-widest font-[GT50] transition-colors duration-200 ${pathname === href ? "text-genesis-red" : "text-genesis-navy hover:text-genesis-red"}`}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Mobile hamburger */}
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="bg-primary-light text-white p-2 flex items-center cursor-pointer z-110"
+          className="md:hidden text-genesis-navy p-1"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
         >
-          {isMenuOpen ? (
-            <X className="w-5 h-5 md:w-6 md:h-6" />
-          ) : (
-            <Menu className="w-5 h-5 md:w-6 md:h-6" />
-          )}
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-      </div>
+      </nav>
 
-      {/* Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/50 z-90 transition-opacity duration-300 ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible "
-          }`}
-        onClick={() => setIsMenuOpen(false)}
-        onWheel={(e) => e.preventDefault()}
-        onTouchMove={(e) => e.preventDefault()}
-      />
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div className="md:hidden bg-white border-b border-gray-100 px-8 py-4 flex flex-col gap-4">
+          {navLinks.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`text-sm uppercase tracking-widest font-[GT50] transition-colors ${pathname === href ? "text-genesis-red" : "text-genesis-navy"}`}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      )}
 
-      {/* Menu Panel */}
-      <div
-        className={`fixed top-0 right-0 w-full md:w-1/2 h-[100vh] px-10 pt-40 overflow-y-auto bg-white z-95 transition-transform duration-500 ease-out overflow-hidden ${isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        onWheel={(e) => e.stopPropagation()}
-        onTouchMove={(e) => e.stopPropagation()}
-      >
-        <div className="flex border-b border-primary-light pb-10 px-10 flex-col justify-center   md:px-20 gap-4 md:gap-6">
-          <Link
-            href="/About"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-primary-light text-2xl md:text-5xl font-[PPFONT] uppercase hover:opacity-70 transition-opacity"
-          >
-            About
-          </Link>
-          <Link
-            href="/Services"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-primary-light text-2xl md:text-5xl font-[PPFONT] uppercase hover:opacity-70  transition-opacity"
-          >
-            Services
-          </Link>
-          <Link
-            href="/Projects"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-primary-light text-2xl md:text-5xl font-[PPFONT] uppercase hover:opacity-70 transition-opacity"
-          >
-            Projects
-          </Link>
-          <Link
-            href="/Contacts"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-primary-light text-2xl md:text-5xl font-[PPFONT] uppercase hover:opacity-70 transition-opacity"
-          >
-            Contact
-          </Link>
+      {/* Sector strip — only on /Projects */}
+      {isProjects && (
+        <div
+          className="w-full bg-white border-b border-gray-100 px-8 md:px-16 flex items-center overflow-x-auto"
+          style={{ scrollbarWidth: "none" }}
+        >
+          <span className="text-xs text-gray-400 font-[GT50] uppercase tracking-widest pr-6 border-r border-gray-200 py-3 shrink-0">
+            Sectors
+          </span>
+          {sectors.map(({ label, id }) => (
+            <button
+              key={id}
+              onClick={() => handleSectorClick(id)}
+              className={`relative text-xs md:text-sm font-[GT50] uppercase tracking-wider whitespace-nowrap transition-colors px-4 md:px-5 py-3 ${activeId === id ? "text-genesis-navy" : "text-gray-500 hover:text-genesis-navy"}`}
+            >
+              {label}
+              {activeId === id && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-genesis-red" />
+              )}
+            </button>
+          ))}
         </div>
-        <div className="flex gap-100 items-start pt-5 border-b pb-15 border-primary-light">
-          <p className="font-[GT50] text-primary-light">COMPANY</p>
-          <div>
-            <Link
-              href="/about"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-primary-light text-xl md:text-xl font-[GT50] uppercase hover:opacity-70 transition-opacity block "
-            >
-              Culture & career
-            </Link>
-            <Link
-              href="/Blog"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-primary-light text-xl md:text-xl font-[GT50] uppercase hover:opacity-70 transition-opacity block "
-            >
-              Blogs
-            </Link>
-            <Link
-              href="/careers"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-primary-light text-xl md:text-xl font-[GT50] uppercase hover:opacity-70 transition-opacity block "
-            >
-              Contacts
-            </Link>
-          </div>
-        </div>
-        <div className="flex gap-100 items-start pt-5 border-b pb-15 border-primary-light">
-          <p className="font-[GT50] uppercase text-primary-light">Stay in Touch</p>
-          <div>
-            <Link
-              href="/about"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-primary-light text-xl md:text-xl font-[GT50] uppercase hover:opacity-70 transition-opacity block border-b border-primary-light"
-            >
-              1-22-333-4444
-            </Link>
-            <Link
-              href="/team"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-primary-light text-xl md:text-xl font-[GT50]  hover:opacity-70 transition-opacity block border-b border-primary-light"
-            >
-              contact@gmail.com
-            </Link>
-            <Link
-              href="/careers"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-primary-light text-xl md:text-sm font-[GT50] uppercase hover:opacity-70 mt-10 transition-opacity block "
-            >
-              Location1, City, <br /> Desh
-            </Link>
-          </div>
-        </div>
-        <input
-          className="bg-transparent border mt-5 w-full border-primary-light text-primary-light py-10 px-10 focus:outline-none focus:border-primary-light placeholder:text-primary-light/50"
-          placeholder="Enter your email"
-        />
-      </div>
-    </>
+      )}
+    </div>
   );
 }

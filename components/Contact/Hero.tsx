@@ -1,9 +1,62 @@
 export default function Hero() {
   return (
-    <div className="w-full min-h-[30vh] lg:min-h-[75vh] bg-primary pt-7 px-5 flex flex-col justify-end">
-      <h1 className="text-[14vw] md:text-[12vw] font-[PPFONT] text-neutral-base tracking-tight pl-3 md:pl-5 border-b border-neutral-base text-center pb-2">
-        Let&apos;s Connect
-      </h1>
-    </div>
+    <section className="h-screen w-full bg-genesis-navy flex flex-col justify-between px-8 md:px-16 pt-32 pb-12">
+      <div className="flex items-start justify-between border-b border-white/10 pb-6">
+        <span className="text-xs uppercase tracking-widest text-white/50 font-[GT50]">
+          Contact Us
+        </span>
+        <span className="text-xs uppercase tracking-widest text-white/50 font-[GT50]">
+          01
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-6 max-w-2xl">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-[PPFONT] leading-tight">
+          Let&apos;s build something
+          <br />
+          <span className="text-genesis-red">significant.</span>
+        </h1>
+        <p className="text-sm text-white/60 font-[GT50] leading-relaxed max-w-md">
+          Whether you&apos;re a founder seeking a first check or a portfolio
+          company looking for follow-on support, we want to hear from you. We
+          respond within 5 business days.
+        </p>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-8 border-t border-white/10 pt-8">
+        <div className="flex flex-col gap-1 border-l border-white/20 pl-5">
+          <span className="text-xs text-white/40 uppercase tracking-widest font-[GT50]">
+            General
+          </span>
+          <span className="text-sm text-white font-[GT50]">
+            contact@genesisventures.com
+          </span>
+        </div>
+        <div className="flex flex-col gap-1 border-l border-white/20 pl-5">
+          <span className="text-xs text-white/40 uppercase tracking-widest font-[GT50]">
+            Pitch
+          </span>
+          <span className="text-sm text-white font-[GT50]">
+            founders@genesisventures.com
+          </span>
+        </div>
+        <div className="flex flex-col gap-1 border-l border-white/20 pl-5">
+          <span className="text-xs text-white/40 uppercase tracking-widest font-[GT50]">
+            Office
+          </span>
+          <span className="text-sm text-white font-[GT50]">
+            350 Fifth Ave, New York, NY 10118
+          </span>
+        </div>
+        <div className="flex flex-col gap-1 border-l border-white/20 pl-5">
+          <span className="text-xs text-white/40 uppercase tracking-widest font-[GT50]">
+            Phone
+          </span>
+          <span className="text-sm text-white font-[GT50]">
+            +1 (212) 555-0100
+          </span>
+        </div>
+      </div>
+    </section>
   );
 }
