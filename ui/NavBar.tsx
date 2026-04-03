@@ -42,6 +42,7 @@ const navLinks = [
 
 export default function NavBar() {
   const pathname = usePathname();
+  const isContactPage = pathname === "/Contacts";
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -85,18 +86,13 @@ export default function NavBar() {
     closeTimer.current = setTimeout(() => setOpenDropdown(null), 150);
   };
 
-  // ------------------ CHANGED: useMemo for navbar background ------------------
-  const navbarBg = useMemo(() => {
-    const bluePages = ["/Contacts"]; // pages where navbar should always be solid blue
-    if (bluePages.includes(pathname)) {
-      return "bg-genesis-navy text-white  "; // fixed blue background
-    }
-    // normal scroll effect
-    return scrolled
-      ? "bg-white/90 backdrop-blur-md shadow-sm text-genesis-navy hover:text-genesis-red"
-      : "bg-transparent border-transparent text-white hover:text-white/50";
-  }, [pathname, scrolled]);
-  // ---------------------------------------------------------------------------
+  const navbarSurface = scrolled
+    ? "bg-white/90 backdrop-blur-md shadow-sm border-gray-100"
+    : "bg-transparent border-transparent";
+
+  const navbarTextColor = useMemo(() => {
+    return isContactPage || scrolled ? "text-genesis-navy" : "text-white";
+  }, [isContactPage, scrolled]);
 
   return (
     <div
@@ -104,10 +100,10 @@ export default function NavBar() {
       style={{ transform: showNavbar ? "translateY(0)" : "translateY(-100%)" }}
     >
       <nav
-        className={`flex items-center justify-between px-6 md:px-16 py-4 border-b border-gray-100 transition-all duration-300 ${navbarBg}`}
+        className={`flex items-center justify-between px-6 md:px-16 py-4 border-b transition-all duration-300 ${navbarSurface} ${navbarTextColor}`}
       >
         <Link href="/" className="flex leading-none select-none shrink-0">
-          {scrolled ? (
+          {isContactPage || scrolled ? (
             <Image
               src="/images/final/png/Asset 3.png"
               alt="Genesis Ventures"
@@ -137,9 +133,8 @@ export default function NavBar() {
                 href={href ?? "#"}
                 className={`flex items-center gap-1 text-xs uppercase tracking-widest font-poppins transition-colors duration-200 ${
                   pathname === href
-                    ? scrolled ?  "text-genesis-red"
-                    : ""
-                    : scrolled
+                    ? "text-genesis-red"
+                    : isContactPage || scrolled
                     ? "text-genesis-navy hover:text-genesis-red"
                     : "text-white hover:text-white/70"
                 }`}
@@ -186,7 +181,9 @@ export default function NavBar() {
         </ul>
 
         <button
-          className="md:hidden text-genesis-navy p-1"
+          className={`md:hidden p-1 transition-colors duration-200 ${
+            isContactPage || scrolled ? "text-genesis-navy" : "text-white"
+          }`}
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
