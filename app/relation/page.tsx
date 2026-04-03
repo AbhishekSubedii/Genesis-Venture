@@ -6,10 +6,10 @@ import ReportsAndUpdates from "@/components/InvestorRelations/ReportsAndUpdates"
 export default function Home() {
   return (
     <main className="w-full font-[PPFONT]">
-        <Hero />
-        <ReportsAndUpdates />
-        <InvestorDocuments />
-
+      <Hero />
+      <ReportsAndUpdates />
+      <InvestorDocuments />
+      {/* <PartnerCTA /> */}
     </main>
   );
 }
