@@ -110,15 +110,15 @@ const ReportsAndUpdates = () => {
       <div className="flex flex-col md:flex-row gap-px flex-1 min-h-0">
         <div className="hidden md:block md:w-1/3 md:self-start md:sticky md:top-24">
           <div className="relative overflow-hidden h-104 lg:h-136 xl:h-152">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/videos/city.mp4" type="video/mp4" />
-          </video>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/videos/city.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
 
@@ -128,11 +128,10 @@ const ReportsAndUpdates = () => {
               <button
                 key={label}
                 onClick={() => setActiveFilter(label)}
-                className={`text-[9px] xs:text-[10px] sm:text-xs uppercase tracking-widest font-poppins px-2.5 xs:px-3 py-1.5 border whitespace-nowrap transition-all duration-150 ${
-                  activeFilter === label
-                    ? "border-genesis-navy bg-genesis-red text-white"
-                    : "border-gray-200 text-gray-500 bg-white hover:border-genesis-navy hover:text-genesis-navy"
-                }`}
+                className={`text-[9px] xs:text-[10px] sm:text-xs uppercase tracking-widest font-poppins px-2.5 xs:px-3 py-1.5 border whitespace-nowrap transition-all duration-150 ${activeFilter === label
+                  ? "border-genesis-navy bg-genesis-red text-white"
+                  : "border-gray-200 text-gray-500 bg-white hover:border-genesis-navy hover:text-genesis-navy"
+                  }`}
               >
                 <span className="sm:hidden">{short}</span>
                 <span className="hidden sm:inline">{label}</span>

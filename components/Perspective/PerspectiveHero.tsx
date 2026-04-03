@@ -2,6 +2,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import { MouseEvent } from "react";
 
 const stats = [
   { value: "120+", label: "Articles Published" },
@@ -11,6 +12,21 @@ const stats = [
 ];
 
 const PerspectiveHero = () => {
+  const handleSectionScroll = (
+    event: MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+  ) => {
+    event.preventDefault();
+
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   useGSAP(() => {
     const splitTitle = new SplitText(".hero-heading", { type: "words" });
 
@@ -74,12 +90,14 @@ const PerspectiveHero = () => {
       <div className="nav-tabs flex gap-0 border border-white/10 mt-2 w-full sm:w-auto">
         <a
           href="#market-insights"
+          onClick={(event) => handleSectionScroll(event, "market-insights")}
           className="flex-1 sm:flex-none text-center px-5 sm:px-6 py-2.5 text-[10px] sm:text-xs uppercase tracking-widest font-poppins text-white bg-genesis-navy hover:bg-white/20 transition-colors duration-150"
         >
           Market Insights
         </a>
         <a
           href="#media"
+          onClick={(event) => handleSectionScroll(event, "media")}
           className="flex-1 sm:flex-none text-center px-5 sm:px-6 py-2.5 text-[10px] sm:text-xs uppercase tracking-widest font-poppins text-white/50 hover:text-white hover:bg-white/10 transition-colors duration-150"
         >
           Media

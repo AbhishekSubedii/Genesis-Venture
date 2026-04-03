@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -19,26 +19,26 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
 }) => {
   const baseClasses =
-    "text-xs uppercase tracking-widest px-5 py-2.5 font-poppins w-fit transition-colors";
+    "inline-flex w-fit items-center justify-center border px-4 py-2.5 text-[10px] uppercase tracking-[0.22em] font-poppins transition-colors duration-200 sm:px-5 sm:text-xs";
 
   const variantClasses =
     variant === "red"
-      ? "text-white bg-genesis-red hover:bg-genesis-red-dark"
-      : "text-white bg-genesis-navy hover:bg-genesis-navy-dark";
+      ? "border-genesis-red bg-genesis-red text-white hover:border-genesis-red-dark hover:bg-genesis-red-dark"
+      : "border-genesis-navy bg-genesis-navy text-white hover:border-genesis-navy-dark hover:bg-genesis-navy-dark";
 
   const finalClasses = `${baseClasses} ${variantClasses} ${className}`.trim();
 
   if (href) {
     return (
       <Link href={href} className={finalClasses}>
-        {text} →
+        {text}
       </Link>
     );
   }
 
   return (
     <button onClick={onClick} className={finalClasses}>
-      {text} →
+      {text}
     </button>
   );
 };
