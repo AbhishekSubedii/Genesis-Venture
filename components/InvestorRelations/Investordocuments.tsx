@@ -1,4 +1,12 @@
-import React from "react";
+"use client";
+import Button from "@/ui/Button";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const documents = [
   {
@@ -9,7 +17,16 @@ const documents = [
       "Summary of our fund's objective, investment strategy, key statistics, AUM breakdown, and historical performance highlights across sectors.",
     meta: "PDF · 2.4 MB · Updated Q1 2026",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
         <line x1="8" y1="21" x2="16" y2="21" />
         <line x1="12" y1="17" x2="12" y2="21" />
@@ -24,7 +41,16 @@ const documents = [
       "Slide deck summarizing the firm, portfolio performance, notable exits, investment philosophy, and our market positioning across 12 countries.",
     meta: "PDF · 8.1 MB · Updated Q2 2026",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M2 3h20v14H2z" />
         <path d="M8 21l4-4 4 4" />
         <path d="M12 17V7" />
@@ -40,7 +66,16 @@ const documents = [
       "Our environmental, social, and governance commitments — sustainability practices, portfolio impact metrics, and policies on ethical investing.",
     meta: "PDF · 3.7 MB · Updated 2025",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <polyline points="9 12 11 14 15 10" />
       </svg>
@@ -54,7 +89,16 @@ const documents = [
       "Internal governance structure, advisory boards, compliance policies, investor rights, and our standards for transparency and decision-making.",
     meta: "PDF · 1.2 MB · Updated 2025",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M12 2L2 7l10 5 10-5-10-5z" />
         <path d="M2 17l10 5 10-5" />
         <path d="M2 12l10 5 10-5" />
@@ -63,38 +107,82 @@ const documents = [
   },
 ];
 
-const DownloadIcon = () => (
-  <svg
-    width="13"
-    height="13"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7 10 12 15 17 10" />
-    <line x1="12" y1="15" x2="12" y2="3" />
-  </svg>
-);
-
 const InvestorDocuments = () => {
-  return (
-    <section className="min-h-screen w-full bg-white flex flex-col px-8 md:px-16 py-10 md:py-24">
+  const containerRef = useRef<HTMLDivElement>(null);
 
-      <div className="flex items-start justify-between border-b border-gray-200 pb-4 md:pb-6">
-        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+  useGSAP(() => {
+    const splitTitle = new SplitText(".documents-heading", { type: "words" });
+
+    gsap.from(splitTitle.words, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 90%",
+        end: "top top",
+        scrub: true,
+      },
+      opacity: 0,
+      y: 30,
+      filter: "blur(10px)",
+      stagger: 0.05,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    if (!containerRef.current) return;
+
+    const paragraph = containerRef.current.querySelector<HTMLParagraphElement>(
+      "#animated-paragraph",
+    );
+    if (!paragraph) return;
+
+    const words = paragraph.textContent
+      ?.split(" ")
+      .map((word) => `<span class="word">${word}</span>`)
+      .join(" ");
+    if (words) paragraph.innerHTML = words;
+
+    const wordEls = paragraph.querySelectorAll(".word");
+
+    gsap.fromTo(
+      wordEls,
+      { opacity: 0.1 },
+      {
+        opacity: 1,
+        stagger: 0.1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 90%",
+          end: "top top",
+          scrub: true,
+        },
+      },
+    );
+
+    return () => {
+      splitTitle.revert();
+    };
+  });
+
+  return (
+    <section
+      ref={containerRef}
+      className="min-h-screen w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
+    >
+      <div className="flex items-start justify-between border-b border-gray-200 pb-3 sm:pb-4 md:pb-6">
+        <span className="documents-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
           Investor Relations
         </span>
       </div>
 
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pt-6 md:pt-10 mb-8 md:mb-14">
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-genesis-navy leading-snug font-[PPFONT] max-w-xl">
+      <div className="flex flex-col gap-3 sm:gap-4 pt-5 sm:pt-6 md:pt-10 mb-6 sm:mb-8 md:mb-14">
+        <h2 className="documents-heading text-[clamp(1.25rem,4vw,2.5rem)] text-genesis-navy leading-snug font-[PPFONT] max-w-xl">
           Investor Documents
         </h2>
-        <p className="text-sm text-gray-500 font-[GT50] leading-relaxed max-w-sm md:text-right">
+        <p
+          id="animated-paragraph"
+          className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-500 font-poppins leading-relaxed max-w-lg"
+        >
           Key materials for current and prospective investors — fund strategy,
           performance, ESG commitments, and governance documentation.
         </p>
@@ -104,45 +192,37 @@ const InvestorDocuments = () => {
         {documents.map((doc) => (
           <div
             key={doc.id}
-            className="bg-white flex flex-col gap-5 p-6 md:p-10 group hover:bg-gray-50 transition-colors duration-200"
+            className="relative bg-white flex flex-col gap-3 sm:gap-4 md:gap-5 p-4 xs:p-5 sm:p-6 md:p-10 group hover:bg-gray-50 transition-colors duration-200"
           >
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-genesis-red scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
 
             <div className="flex items-center justify-between">
               <div className="text-genesis-navy opacity-40 group-hover:opacity-100 transition-opacity duration-200">
                 {doc.icon}
               </div>
-              <span className="text-xs uppercase tracking-widest text-genesis-red font-[GT50]">
+              <span className="text-[10px] xs:text-xs uppercase tracking-widest text-genesis-blue group-hover:text-genesis-red font-poppins">
                 {doc.category}
               </span>
             </div>
 
-            <h3 className="text-lg md:text-xl font-[PPFONT] text-genesis-navy leading-snug group-hover:text-genesis-red transition-colors duration-200">
+            <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-[PPFONT] text-genesis-navy leading-snug group-hover:text-genesis-red transition-colors duration-200">
               {doc.title}
             </h3>
 
-            <p className="text-xs text-gray-500 font-[GT50] leading-relaxed flex-1">
+            <p className="text-[10px] xs:text-xs sm:text-xs text-gray-500 font-poppins leading-relaxed flex-1">
               {doc.description}
             </p>
 
-            <span className="text-xs text-gray-400 font-[GT50] tracking-wide">
+            <span className="text-[10px] xs:text-xs text-gray-400 font-poppins tracking-wide">
               {doc.meta}
             </span>
 
             <div className="border-t border-gray-100" />
 
-            <button className="flex items-center gap-2 text-xs uppercase tracking-widest font-[GT50] text-genesis-navy w-fit hover:text-genesis-red transition-colors duration-150 group/btn">
-              <DownloadIcon />
-              <span className="border-b border-gray-300 group-hover/btn:border-genesis-red pb-0.5 transition-colors duration-150">
-                Download PDF
-              </span>
-            </button>
-
+            <Button text="Download PDF" />
           </div>
         ))}
       </div>
-
-  
-
     </section>
   );
 };

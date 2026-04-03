@@ -95,53 +95,53 @@ const InvestmentPhilosophy = () => {
 
   return (
     <section
-    id="investment-philosophy"
+      id="investment-philosophy"
       ref={containerRef}
-      className='className="min-h-screen w-full bg-white flex flex-col px-8 md:px-16 py-16 md:py-24'
+      className="min-h-screen w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
     >
-      <div className="flex items-start justify-between border-b border-gray-200 pb-6 mb-10">
-        <span className="investment-philosophy-heading text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+      <div className="flex items-start justify-between border-b border-gray-200 pb-3 sm:pb-4 md:pb-6 mb-6 sm:mb-8 md:mb-10">
+        <span className="investment-philosophy-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
           Investment Philosophy
         </span>
-        <span className="investment-philosophy-heading text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
-          05
+        <span className="investment-philosophy-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
+          06
         </span>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-12">
-        <div className="md:w-1/3">
-          <h2 className="investment-philosophy-heading text-2xl md:text-3xl text-genesis-navy leading-snug">
+      <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-24 mb-8 sm:mb-10 md:mb-12">
+        <div className="w-full md:w-1/3">
+          <h2 className="investment-philosophy-heading text-[clamp(1.25rem,4vw,2rem)] text-genesis-navy leading-snug font-[PPFONT]">
             We invest early — when conviction matters most.
           </h2>
           <p
             id="animated-paragraph"
-            className="text-sm text-gray-600 font-[GT50] leading-relaxed mt-4 max-w-xs"
+            className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed mt-3 sm:mt-4 max-w-xs"
           >
             Genesis Ventures focuses on founders at the earliest stages...
           </p>
         </div>
       </div>
 
-      <div className="flex gap-px bg-gray-200 flex-1">
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-px bg-gray-200 flex-1">
         {investmentPhilosophy.map(({ id, title, description }) => (
           <div
             key={id}
-            className="relative bg-white flex flex-col justify-between p-6 md:p-8 
-              min-w-55 md:min-w-65 flex-1
-              transition-all duration-300
-              hover:bg-genesis-navy hover:text-white
-              group"
+            className="relative bg-white flex flex-col justify-between p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:bg-genesis-navy/20 group"
           >
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-genesis-red scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
+
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(0,0,0,0.03),transparent)] pointer-events-none" />
-            <span className="text-sm text-genesis-red font-[GT50] uppercase tracking-widest group-hover:text-white transition-colors">
+
+            <span className="text-xs sm:text-sm text-genesis-navy font-poppins uppercase tracking-widest group-hover:text-genesis-red transition-colors">
               {id}
             </span>
-            <div className="flex flex-col gap-2 mt-auto">
-              <div className="w-4 h-px bg-genesis-navy mb-3 group-hover:bg-white transition-colors" />
-              <span className="text-base text-genesis-navy group-hover:text-white transition-colors">
+
+            <div className="flex flex-col gap-1.5 sm:gap-2 mt-auto pt-6 sm:pt-8">
+              <div className="w-4 h-px bg-genesis-navy mb-2 sm:mb-3 transition-colors" />
+              <span className="text-sm sm:text-base text-genesis-navy group-hover:text-genesis-red transition-colors font-[PPFONT]">
                 {title}
               </span>
-              <span className="text-sm text-gray-600 group-hover:text-white/70 transition-colors">
+              <span className="text-xs sm:text-sm text-gray-600 group-hover:text-white/70 transition-colors font-poppins leading-relaxed">
                 {description}
               </span>
             </div>

@@ -1,13 +1,20 @@
 "use client";
+import Button from "@/ui/Button";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useState } from "react";
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 type Tab = "general" | "pitch";
 
 const inputClass =
-  "w-full bg-transparent border-b border-gray-200 py-3 text-sm text-genesis-navy font-[GT50] placeholder:text-gray-400 focus:outline-none focus:border-genesis-navy transition-colors";
+  "w-full bg-transparent border-b border-genesis-navy/20 py-3 text-sm text-genesis-navy font-poppins placeholder:text-genesis-navy/30 focus:outline-none focus:border-genesis-navy/60 transition-colors";
 
 const labelClass =
-  "text-xs uppercase tracking-widest text-gray-500 font-[GT50]";
+  "text-[11px] uppercase tracking-widest text-genesis-navy/60 font-poppins";
 
 const contactDetails = [
   { label: "General", value: "contact@genesisventures.com" },
@@ -19,46 +26,75 @@ const contactDetails = [
 export default function Connect() {
   const [tab, setTab] = useState<Tab>("general");
 
+  useGSAP(() => {
+    const splitTitle = new SplitText(".contact-heading", { type: "words" });
+
+    gsap.from(splitTitle.words, {
+      scrollTrigger: {
+        trigger: ".contact-section",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+      opacity: 0,
+      y: 30,
+      filter: "blur(10px)",
+      stagger: 0.05,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    return () => {
+      splitTitle.revert();
+    };
+  });
+
   return (
-    <section className="min-h-screen w-full bg-white flex flex-col px-8 md:px-16 pt-28 pb-16">
-      {/* Top bar: title + tab switcher */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-6 gap-4">
-        <div>
-          <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
-            Contact Us
+    <section className="contact-section relative w-full overflow-hidden flex flex-col bg-white px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24">
+      <div className="flex items-start justify-between border-b border-genesis-navy/10 pb-3 sm:pb-4 md:pb-6">
+        <span className="contact-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
+          Contact Us
+        </span>
+        <span className="contact-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
+          05
+        </span>
+      </div>
+
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-5 sm:pt-6 md:pt-10 mb-10 md:mb-16">
+        <div className="flex flex-col gap-3">
+          <span className="contact-heading text-xs uppercase tracking-widest text-genesis-blue font-[GT50]">
+            Get in touch
           </span>
-          <h1 className="text-2xl md:text-3xl text-genesis-navy font-[PPFONT] mt-1">
-            Get in touch.
+          <h1 className="contact-heading text-[clamp(1.25rem,4vw,2.5rem)] text-genesis-navy font-[PPFONT] leading-snug max-w-xl">
+            Let&apos;s start a conversation.
           </h1>
         </div>
 
-        {/* Tab switcher */}
-        <div className="flex gap-0 border border-gray-200 w-fit">
+        <div className="flex gap-px border border-genesis-navy/15 w-fit shrink-0">
           <button
             onClick={() => setTab("general")}
-            className={`px-6 py-2 text-xs uppercase tracking-widest font-[GT50] transition-colors ${
+            className={`px-6 py-2.5 text-xs uppercase tracking-widest font-poppins transition-colors duration-200 ${
               tab === "general"
                 ? "bg-genesis-navy text-white"
-                : "text-gray-500 hover:text-genesis-navy"
+                : "text-genesis-navy/40 hover:text-genesis-navy bg-transparent"
             }`}
           >
             General
           </button>
           <button
             onClick={() => setTab("pitch")}
-            className={`px-6 py-2 text-xs uppercase tracking-widest font-[GT50] transition-colors ${
+            className={`px-6 py-2.5 text-xs uppercase tracking-widest font-poppins transition-colors duration-200 ${
               tab === "pitch"
-                ? "bg-genesis-red text-white"
-                : "text-gray-500 hover:text-genesis-navy"
+                ? "bg-genesis-navy text-white"
+                : "text-genesis-navy/40 hover:text-genesis-navy bg-transparent"
             }`}
           >
-            Pitch
+            Pitch Us
           </button>
         </div>
       </div>
 
-      {/* Form */}
-      <div className="flex flex-col md:flex-row gap-12 md:gap-24 flex-1 pt-10">
+      <div className="flex flex-col md:flex-row gap-12 md:gap-20 flex-1">
         <div className="md:w-2/3">
           {tab === "general" ? (
             <form
@@ -99,12 +135,7 @@ export default function Connect() {
                   className={`${inputClass} resize-none`}
                 />
               </div>
-              <button
-                type="submit"
-                className="w-fit px-8 py-3 bg-genesis-navy text-white text-xs uppercase tracking-widest font-[GT50] hover:bg-genesis-navy-dark transition-colors"
-              >
-                Send Message
-              </button>
+              <Button text="Send Message" />
             </form>
           ) : (
             <form
@@ -163,28 +194,27 @@ export default function Connect() {
                   className={`${inputClass} resize-none`}
                 />
               </div>
-              <button
-                type="submit"
-                className="w-fit px-8 py-3 bg-genesis-red text-white text-xs uppercase tracking-widest font-[GT50] hover:bg-genesis-red-dark transition-colors"
-              >
-                Submit Pitch
-              </button>
+              <Button text="Submit Pitch" />
             </form>
           )}
         </div>
 
-        {/* Contact details sidebar */}
-        <div className="md:w-1/3 flex flex-col justify-start gap-6 border-t md:border-t-0 md:border-l border-gray-100 pt-8 md:pt-0 md:pl-12">
-          {contactDetails.map(({ label, value }) => (
-            <div key={label} className="flex flex-col gap-1">
-              <span className="text-xs uppercase tracking-widest text-gray-400 font-[GT50]">
-                {label}
-              </span>
-              <span className="text-sm text-genesis-navy font-[GT50]">
-                {value}
-              </span>
-            </div>
-          ))}
+        <div className="md:w-1/3 flex flex-col justify-between border-t md:border-t-0 md:border-l border-genesis-navy/10 pt-8 md:pt-0 md:pl-12">
+          <div className="flex flex-col gap-8">
+            {contactDetails.map(({ label, value }) => (
+              <div
+                key={label}
+                className="flex flex-col gap-1.5 border-l border-genesis-navy/10 pl-4"
+              >
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 font-poppins">
+                  {label}
+                </span>
+                <span className="text-sm text-genesis-navy font-poppins">
+                  {value}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

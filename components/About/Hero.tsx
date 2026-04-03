@@ -2,19 +2,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import { ImagePlayer } from "../image-player";
-import Image from "next/image";
 
-const IMAGES = [
-  "/images/hero/img1.jpg",
-  "/images/hero/img2.jpg",
-  "/images/hero/img3.jpg",
-  "/images/hero/img4.jpg",
-  "/images/hero/img5.jpg",
-  
-];
+gsap.registerPlugin(SplitText);
+
 export default function Hero() {
-
   useGSAP(() => {
     const splitTitle = new SplitText(".hero-heading", { type: "words" });
 
@@ -26,6 +17,7 @@ export default function Hero() {
       duration: 1,
       ease: "power3.out",
     });
+
     const splitDesc = new SplitText(".desc", { type: "lines" });
 
     gsap.from(splitDesc.lines, {
@@ -44,61 +36,38 @@ export default function Hero() {
   });
 
   return (
-    <section id="about" className="h-screen w-full  flex flex-col justify-between px-8 md:px-16 pt-32 pb-12">
-       <ImagePlayer
-              images={IMAGES}
-              interval={3000}
-              renderImage={(src) => (
-                <Image
-                  src={src}
-                  fill
-                  className="size-full object-cover inline-block align-middle -z-30"
-                  alt="showcalse"
-                />
-              )}
-            />
+    <section className="relative min-h-screen w-full flex flex-col justify-between items-center px-4 xs:px-6 sm:px-8 md:px-16 pt-20 xs:pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 md:pb-12 overflow-hidden">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover -z-20"
+      >
+        <source src="/videos/about-us.mp4" type="video/mp4" />
+      </video>
 
-      <div className="absolute inset-0 bg-genesis-navy/90 -z-20"></div>
+      <div className="absolute inset-0 bg-genesis-navy/30 -z-10" />
 
-      <div className="hero-heading flex items-start justify-between border-b border-white/10 pb-6">
-        <span className="text-xs uppercase tracking-widest text-white/40 font-[GT50]">
-          About Us
-        </span>
-        <span className="text-xs uppercase tracking-widest text-white/40 font-[GT50]">
-          01
-        </span>
+      <div className="w-full flex items-start justify-between border-b border-white/10 pb-3">
+       
       </div>
 
-      <div className="flex flex-col gap-6 max-w-2xl">
-        <h1 className="hero-heading text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
+      <div className="flex flex-col items-center gap-4 sm:gap-6 max-w-xs xs:max-w-sm sm:max-w-md md:max-w-2xl text-center">
+        <h1 className="hero-heading text-[clamp(2rem,6vw,3.75rem)] text-white leading-tight font-[PPFONT]">
           Built on conviction.
           <br />
-          <span className="text-genesis-red">Driven by purpose.</span>
+          Driven by purpose.
         </h1>
-        <p className="desc text-sm text-white/50 font-[GT50] leading-relaxed max-w-md">
+        <p className="desc text-xs xs:text-sm text-center text-white/80 font-poppins leading-relaxed max-w-xs sm:max-w-sm md:max-w-md">
           Since 1991, Genesis Ventures has partnered with visionary founders at
           the earliest stages of company building. We bring capital, networks,
           and decades of operational experience to every investment.
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-6 md:gap-16 border-t border-white/10 pt-8">
-        {[
-          { value: "1991", label: "Founded" },
-          { value: "Kathmandu", label: "Headquarters" },
-          { value: "$2.4B+", label: "AUM" },
-          { value: "80+", label: "Portfolio Companies" },
-        ].map(({ value, label }) => (
-          <div key={label} className="flex flex-col gap-1">
-            <span className="text-xl md:text-2xl text-white font-[PPFONT]">
-              {value}
-            </span>
-            <span className="text-xs text-white/50 uppercase tracking-widest font-[GT50]">
-              {label}
-            </span>
-          </div>
-        ))}
-      </div>
+      {/* Bottom spacer — stats moved to About section */}
+      <div className="w-full border-t border-white/10 pt-6 sm:pt-8" />
     </section>
   );
 }

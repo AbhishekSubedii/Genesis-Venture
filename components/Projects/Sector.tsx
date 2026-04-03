@@ -2,11 +2,15 @@
 import { useState } from "react";
 
 const sectors = [
-  { label: "Technology & AI", id: "technology" },
-  { label: "Healthcare & Life Sciences", id: "healthcare" },
-  { label: "Financial Services", id: "fintech" },
-  { label: "Real Estate & Infrastructure", id: "realestate" },
-  { label: "Consumer & Retail", id: "consumer" },
+  { label: "Technology & AI", short: "Tech", id: "technology" },
+  { label: "Healthcare & Life Sciences", short: "Health", id: "healthcare" },
+  { label: "Financial Services", short: "Finance", id: "fintech" },
+  {
+    label: "Real Estate & Infrastructure",
+    short: "Real Estate",
+    id: "realestate",
+  },
+  { label: "Consumer & Retail", short: "Consumer", id: "consumer" },
 ];
 
 export default function SectorStrip() {
@@ -20,17 +24,15 @@ export default function SectorStrip() {
 
   return (
     <div
-      className="w-full border-y border-gray-100 px-8 md:px-16 flex items-center justify-between overflow-x-auto"
+      className="w-full border-y border-gray-100 px-4 h-18 sm:px-8 md:px-16 flex items-center justify-between gap-1 sm:gap-2 overflow-x-auto"
       style={{ scrollbarWidth: "none" }}
     >
-      {/* Label */}
-      <span className="text-xs text-gray-400 font-[GT50] uppercase tracking-widest pr-6 border-r border-gray-200 py-4 shrink-0">
-        Sectors
+      <span className="text-[10px] sm:text-xs text-gray-400 font-poppins uppercase tracking-widest pr-3 sm:pr-6 border-r border-gray-200 py-3 sm:py-4 shrink-0">
+        Portfolio 
       </span>
 
-      {/* Buttons */}
-      <div className="flex items-center">
-        {sectors.map(({ label, id }) => {
+      <div className="flex items-center min-w-0">
+        {sectors.map(({ label, short, id }) => {
           const isActive = activeId === id;
           const isHovered = hoveredId === id;
 
@@ -40,15 +42,15 @@ export default function SectorStrip() {
               onClick={() => handleClick(id)}
               onMouseEnter={() => setHoveredId(id)}
               onMouseLeave={() => setHoveredId(null)}
-              className={`relative group px-5 md:px-6 py-4 text-xs md:text-sm font-[GT50] uppercase tracking-wider whitespace-nowrap transition-colors duration-200 ${
+              className={`relative group px-2 xs:px-3 sm:px-5 md:px-6 py-3 sm:py-4 text-[9px] xs:text-[10px] sm:text-xs md:text-sm font-poppins uppercase tracking-wider whitespace-nowrap transition-colors duration-200 ${
                 isActive
                   ? "text-genesis-navy"
                   : "text-gray-400 hover:text-genesis-navy"
               }`}
             >
-              {label}
+              <span className="sm:hidden">{short}</span>
+              <span className="hidden sm:inline">{label}</span>
 
-              {/* Animated underline */}
               <span
                 className={`absolute bottom-0 left-0 h-0.5 bg-genesis-red transition-all duration-300 ease-out ${
                   isActive
@@ -59,7 +61,6 @@ export default function SectorStrip() {
                 }`}
               />
 
-              {/* Subtle background fill on hover */}
               <span
                 className={`absolute inset-0 bg-genesis-navy transition-opacity duration-200 ${
                   isHovered && !isActive ? "opacity-[0.03]" : "opacity-0"

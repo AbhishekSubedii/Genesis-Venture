@@ -1,155 +1,110 @@
-import React from "react";
+"use client";
+import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import Button from "@/ui/Button";
+import { media } from "@/lib/media";
 
-const mediaItems = [
-  {
-    id: 1,
-    date: "March 2026",
-    source: "Press Release",
-    tag: "Investment",
-    title: "Genesis Ventures Invests in Fintech Startup PayFlow",
-    description:
-      "Genesis Ventures announced its investment in PayFlow, a Nepal-based fintech startup focused on simplifying digital payments for small businesses.",
-  },
-  {
-    id: 2,
-    date: "February 2026",
-    source: "Company Announcement",
-    tag: "Fund",
-    title: "Genesis Ventures Launches New $150M Early-Stage Fund",
-    description:
-      "The new fund aims to support early-stage startups across South Asia, with a focus on AI, fintech, and climate technology.",
-  },
-  {
-    id: 3,
-    date: "January 2026",
-    source: "Event",
-    tag: "Leadership",
-    title: "Managing Partner Speaks at South Asia Startup Summit",
-    description:
-      "Genesis Ventures' Managing Partner shared insights on venture capital trends and startup growth strategies at the annual startup summit.",
-  },
-];
-
-const ArrowIcon = () => (
-  <svg
-    width="13"
-    height="13"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
-  </svg>
-);
-
-const ExternalIcon = () => (
-  <svg
-    width="11"
-    height="11"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const Media = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const splitTitle = new SplitText(".media-heading", { type: "words" });
+
+    gsap.from(splitTitle.words, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 90%",
+        end: "top top",
+        scrub: true,
+      },
+      opacity: 0,
+      y: 30,
+      filter: "blur(10px)",
+      stagger: 0.05,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    return () => {
+      splitTitle.revert();
+    };
+  });
+
   return (
     <section
+      ref={containerRef}
       id="media"
-      className="w-full bg-white flex flex-col px-8 md:px-16 py-10 md:py-24"
+      className="w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
     >
-
-      {/* ── Section Header ── */}
-      <div className="flex items-start justify-between border-b border-gray-200 pb-4 md:pb-6">
-        <span className="text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
+      <div className="flex items-start justify-between border-b border-gray-200 pb-3 sm:pb-4 md:pb-6">
+        <span className="media-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
           Media
         </span>
-        <a
-          href="/perspective/media"
-          className="text-xs uppercase tracking-widest text-genesis-red font-[GT50] border-b border-genesis-red pb-0.5 hover:opacity-70 transition-opacity"
-        >
-          View All →
-        </a>
       </div>
 
-      {/* ── Section Title ── */}
-      <div className="pt-6 md:pt-10 mb-10 md:mb-14">
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-genesis-navy leading-snug font-[PPFONT] max-w-2xl">
+      <div className="pt-5 sm:pt-6 md:pt-10 mb-6 sm:mb-8 md:mb-14">
+        <h2 className="media-heading text-[clamp(1.25rem,4vw,2.5rem)] text-genesis-navy leading-snug font-[PPFONT] max-w-2xl">
           News, announcements, and public updates from Genesis Ventures.
         </h2>
       </div>
 
-      {/* ── Media List ── */}
-      <div className="flex flex-col divide-y divide-gray-200">
-        {mediaItems.map((item, index) => (
-          <div
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200">
+        {media.map((item) => (
+          <article
             key={item.id}
-            className="flex flex-col md:flex-row md:items-start gap-4 md:gap-12 py-6 md:py-8 group hover:bg-gray-50 -mx-8 md:-mx-16 px-8 md:px-16 transition-colors duration-200"
+            className="relative bg-white flex flex-col group p-2 md:p-4 hover:bg-gray-50 transition-colors duration-200 overflow-hidden"
           >
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-genesis-red scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
 
-            {/* Left: index + date */}
-            <div className="flex md:flex-col gap-4 md:gap-1 md:w-28 shrink-0">
-              <span className="text-xs text-gray-300 font-[PPFONT] tabular-nums">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="text-xs text-gray-400 font-[GT50] tracking-wide">
-                {item.date}
-              </span>
+            <div className="relative w-full h-36 xs:h-40 sm:h-44 overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                draggable={false}
+                className="w-full h-full object-cover grayscale-15 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500"
+              />
             </div>
 
-            {/* Center: tag + title + description */}
-            <div className="flex flex-col gap-2 flex-1">
-              <div className="flex items-center gap-3">
-                <span className="text-xs uppercase tracking-widest text-genesis-red font-[GT50]">
+            <div className="flex flex-col gap-3 sm:gap-4 p-4 xs:p-5 sm:p-6 md:p-8 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] xs:text-xs uppercase tracking-widest text-genesis-red font-poppins">
                   {item.tag}
                 </span>
-                <span className="text-xs text-gray-300 font-[GT50]">·</span>
-                <span className="text-xs text-gray-400 font-[GT50] tracking-wide">
-                  {item.source}
+                <span className="text-[10px] xs:text-xs text-gray-400 font-poppins tracking-wide">
+                  {item.date}
                 </span>
               </div>
-              <h3 className="text-base md:text-lg font-[PPFONT] text-genesis-navy leading-snug group-hover:text-genesis-red transition-colors duration-200">
+
+              <h3 className="text-sm sm:text-base md:text-lg font-[PPFONT] text-genesis-navy leading-snug group-hover:text-genesis-red transition-colors duration-200">
                 {item.title}
               </h3>
-              <p className="text-xs text-gray-500 font-[GT50] leading-relaxed max-w-xl">
+
+              <p className="text-[10px] xs:text-xs text-gray-500 font-poppins leading-relaxed flex-1">
                 {item.description}
               </p>
-            </div>
 
-            {/* Right: Read More */}
-            <div className="shrink-0 md:self-center">
-              <button className="flex items-center gap-1.5 text-xs uppercase tracking-widest font-[GT50] text-genesis-navy hover:text-genesis-red transition-colors duration-150 group/btn">
-                <span className="border-b border-gray-300 group-hover/btn:border-genesis-red pb-0.5 transition-colors duration-150">
-                  Read
-                </span>
-                <span className="group-hover/btn:translate-x-0.5 transition-transform duration-150">
-                  <ArrowIcon />
-                </span>
-              </button>
-            </div>
+              <div className="border-t border-gray-100" />
 
-          </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] xs:text-xs text-gray-400 font-poppins tracking-wide">
+                  {item.source}
+                </span>
+                <Button
+                  text="Read More"
+                  href={`/perspective/media/${item.slug}`}
+                />
+              </div>
+            </div>
+          </article>
         ))}
       </div>
-
-      {/* ── Footer Bar ── */}
-      <div className="border-t border-gray-100 pt-3 mt-6 md:mt-10">
-        <p className="text-xs text-gray-500 font-[GT50] uppercase tracking-widest">
-          Genesis Ventures, Inc. — Kathmandu, Nepal
-        </p>
-      </div>
-
     </section>
   );
 };

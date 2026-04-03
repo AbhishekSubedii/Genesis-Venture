@@ -5,7 +5,8 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import Button from "@/ui/Button";
+import Link from "next/link";
+import Button from "../ui/Button2";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -62,7 +63,7 @@ export default function About() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 90%",
-          end: "bottom 70%",
+          end: "top -20%",
           scrub: true,
         },
       },
@@ -87,75 +88,101 @@ export default function About() {
       splitTitle.revert();
     };
   });
+
   return (
     <section
       ref={containerRef}
-      className=" h-screen w-full bg-white flex flex-col px-8 md:px-16 py-10 md:py-24"
+      className="w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
     >
-      <div className="flex items-start justify-between border-b border-gray-200 pb-4 md:pb-6">
-        <span className="about-heading text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
-          About Us
-        </span>
-        <span className="about-heading text-xs uppercase tracking-widest text-gray-500 font-[GT50]">
-          02
-        </span>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-8 md:gap-24 flex-1 pt-6 md:pt-10 overflow-hidden">
-        <div className="md:w-1/2 flex flex-col gap-4 md:gap-6 md:justify-center">
-          <h2 className="about-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl text-genesis-navy leading-snug font-[PPFONT]">
-            A disciplined approach to early-stage investment.
-          </h2>
-          <p
-            id="animated-paragraph"
-            className="text-sm text-gray-600 font-[GT50] leading-relaxed max-w-sm hidden sm:block"
-          >
-            Founded in 1991, Genesis Ventures has built a reputation for
-            identifying transformative businesses before they reach mainstream
-            attention. We work closely with founders to accelerate growth and
-            create lasting value.
-          </p>
-          <Button
-            text="Our Story"
-            href="/About"
-            className="relative z-50"
-          />
-        </div>
-
-        <div className="md:w-1/2">
-          <div className="relative w-full h-64 md:h-full overflow-hidden">
-            <Image
-              src="/images/hero/about1.jpg"
-              alt="About us"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-black/10" />
-          </div>
-        </div>
-      </div>
-
-      <div className="border-t border-gray-100 pt-3 mt-4 md:mt-0 flex flex-col md:flex-row gap-6 md:gap-12">
-        <p className="text-xs text-gray-500 font-[GT50] uppercase tracking-widest flex items-center">
-          Genesis Ventures, Inc. — Kathmandu, Nepal
-        </p>
+      <div className="w-full mb-10 sm:mb-14 md:mb-20">
         <div
           ref={statsRef}
-          className="grid grid-cols-4 gap-4 md:gap-8 md:content-center"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-4"
         >
           {stats.map(({ value, label }) => (
             <div
               key={label}
-              className="stats flex flex-col gap-1 border-l border-gray-200 pl-4 md:pl-5"
+              className="stats flex flex-col gap-1 border-l border-gray-200 pl-3 sm:pl-4 md:pl-5"
             >
-              <span className="text-xl md:text-2xl lg:text-3xl font-[PPFONT] text-genesis-navy">
+              <span className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-5xl font-[PPFONT] text-genesis-navy">
                 {value}
               </span>
-              <span className="text-xs text-gray-500 uppercase tracking-widest font-[GT50] leading-tight">
+              <span className="text-[10px] xs:text-xs text-gray-500 uppercase tracking-widest font-poppins leading-tight">
                 {label}
               </span>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="flex items-start justify-between border-b border-gray-200">
+        <span className="about-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
+          About Us
+        </span>
+        <span className="about-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
+          02
+        </span>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-24 flex-1 pt-5 sm:pt-6 md:pt-10 pb-8 sm:pb-10 overflow-hidden">
+        <div className="w-full md:w-1/2 flex flex-col gap-4 md:gap-6 md:justify-center">
+          <span className="about-heading text-xs uppercase tracking-widest text-genesis-blue font-[GT50]">
+            Early-Stage Venture Capital • Est. 1991
+          </span>
+
+          <h2 className="about-heading text-[clamp(1.25rem,4vw,2.5rem)] text-genesis-navy leading-snug font-[PPFONT]">
+            A disciplined approach to early-stage investment.
+          </h2>
+
+          <p
+            id="animated-paragraph"
+            className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed max-w-lg"
+          >
+            Genesis Ventures is an early-stage venture capital firm based in
+            Kathmandu, partnering with ambitious founders from idea to scale. We
+            invest in high-growth sectors where technology and innovation create
+            lasting competitive advantage.
+          </p>
+
+          <div className="flex gap-4 mt-2">
+            {[
+              "Founder-first approach",
+              "High-conviction investing",
+              "Long-term partnership",
+            ].map((item) => (
+              <span
+                key={item}
+                className="text-xs uppercase tracking-widest text-gray-500 border border-gray-200 px-3 py-1"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          {/* <div className="flex gap-6 mt-2 text-xs text-gray-500 font-[GT50] uppercase tracking-widest">
+            <span>30+ Years</span>
+            <span>80+ Companies</span>
+            <span>$2.4B AUM</span>
+          </div> */}
+
+          {/* <Button text="Our Story" href="/About" className="relative z-50" /> */}
+          <Link href="/About">
+            <Button
+              variant="primary"
+              size="md"
+              className="mt-12 bg-genesis-navy px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white hover:bg-genesis-navy/80 transition-colors"
+            >
+              <span className="inline-flex items-center gap-3">Our Story</span>
+            </Button>
+          </Link>
+        </div>
+        <div className="relative w-full md:w-1/2 h-[40vh] xs:h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
+          <Image
+            src="/images/about/meeting.jpg"
+            alt="About us"
+            fill
+            className="object-cover"
+          />
         </div>
       </div>
     </section>
