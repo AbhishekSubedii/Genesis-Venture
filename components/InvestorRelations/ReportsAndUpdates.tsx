@@ -1,6 +1,12 @@
 "use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useState } from "react";
 import Button from "@/ui/Button";
-import React, { useState } from "react";
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const reports = [
   {
@@ -42,14 +48,39 @@ const reports = [
 ];
 
 const filterTabs = [
-  "All",
-  "Annual Report",
-  "Performance Update",
-  "Portfolio Overview",
-  "Market Outlook",
+  { label: "All", short: "All" },
+  { label: "Annual Report", short: "Annual" },
+  { label: "Performance Update", short: "Performance" },
+  { label: "Portfolio Overview", short: "Portfolio" },
+  { label: "Market Outlook", short: "Outlook" },
 ];
 
 const ReportsAndUpdates = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const splitTitle = new SplitText(".report-heading", { type: "words" });
+
+    gsap.from(splitTitle.words, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 90%",
+        end: "top top",
+        scrub: true,
+      },
+      opacity: 0,
+      y: 30,
+      filter: "blur(10px)",
+      stagger: 0.05,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    return () => {
+      splitTitle.revert();
+    };
+  });
+
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filtered =
@@ -58,24 +89,25 @@ const ReportsAndUpdates = () => {
       : reports.filter((r) => r.type === activeFilter);
 
   return (
-    <section className="min-h-screen w-full bg-white flex flex-col px-8 md:px-16 py-10 md:py-24">
-      {/* Top label */}
-      <div className="flex items-start justify-between border-b border-gray-200 pb-4 md:pb-6">
-        <span className="text-xs uppercase tracking-widest text-gray-500 font-poppins">
+    <section
+      ref={containerRef}
+      className="min-h-screen w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
+    >
+      <div className="flex items-start justify-between border-b border-gray-200 pb-3 sm:pb-4 md:pb-6">
+        <span className="report-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
           Reports & Updates
         </span>
       </div>
 
-      {/* Heading + filters */}
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-6 md:pt-10 mb-8 md:mb-12">
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-genesis-navy leading-snug font-[PPFONT] max-w-xl">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6 pt-5 sm:pt-6 md:pt-10 mb-6 sm:mb-8 md:mb-12">
+        <h2 className="report-heading text-[clamp(1.25rem,4vw,2.5rem)] text-genesis-navy leading-snug font-[PPFONT] max-w-xl">
           Stay informed with our latest performance reports, portfolio
           overviews, and market insights.
         </h2>
       </div>
 
       <div className="flex flex-col md:flex-row gap-px flex-1 min-h-0">
-        <div className="hidden md:block w-1/3 h-[80vh] relative self-stretch">
+        <div className="hidden md:block md:w-1/3 relative self-stretch min-h-[50vh]">
           <video
             autoPlay
             muted
@@ -87,50 +119,46 @@ const ReportsAndUpdates = () => {
           </video>
         </div>
 
-        <div className="w-2/3 flex flex-col gap-6 md:gap-8 p-4 md:p-8">
-          <div className="flex flex-wrap gap-2 md:gap-3 shrink-0">
-            {filterTabs.map((tab) => (
+        <div className="w-full md:w-2/3 flex flex-col gap-4 sm:gap-6 md:gap-8 md:p-8">
+          <div className="flex gap-1.5 sm:gap-2 md:gap-3 shrink-0">
+            {filterTabs.map(({ label, short }) => (
               <button
-                key={tab}
-                onClick={() => setActiveFilter(tab)}
-                className={`
-                text-xs uppercase tracking-widest font-poppins px-3 py-1.5 border transition-all duration-150
-                ${
-                  activeFilter === tab
+                key={label}
+                onClick={() => setActiveFilter(label)}
+                className={`text-[9px] xs:text-[10px] sm:text-xs uppercase tracking-widest font-poppins px-2.5 xs:px-3 py-1.5 border whitespace-nowrap transition-all duration-150 ${
+                  activeFilter === label
                     ? "border-genesis-navy bg-genesis-red text-white"
                     : "border-gray-200 text-gray-500 bg-white hover:border-genesis-navy hover:text-genesis-navy"
-                }
-              `}
+                }`}
               >
-                {tab}
+                <span className="sm:hidden">{short}</span>
+                <span className="hidden sm:inline">{label}</span>
               </button>
             ))}
           </div>
-          <div className=" grid grid-cols-1 sm:grid-cols-2 gap-px bg-gray-100">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-gray-100">
             {filtered.slice(0, 4).map((report) => (
               <div
                 key={report.id}
-                className="relative bg-white flex flex-col  gap-4 p-6 md:p-8
-                group transition-all duration-300 justify-start
-                hover:-translate-y-0.5
-                "
+                className="relative bg-white flex flex-col gap-3 sm:gap-4 p-4 xs:p-5 sm:p-6 md:p-8 group transition-all duration-300 justify-start hover:-translate-y-0.5"
               >
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-genesis-red scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-widest text-genesis-navy group-hover:text-genesis-red font-poppins">
+                  <span className="text-[10px] xs:text-xs uppercase tracking-widest text-genesis-navy group-hover:text-genesis-red font-poppins">
                     {report.type}
                   </span>
-                  <span className="text-xs text-gray-400 font-poppins tracking-wide">
+                  <span className="text-[10px] xs:text-xs text-gray-400 font-poppins tracking-wide">
                     {report.badge}
                   </span>
                 </div>
 
-                <h3 className="text-base md:text-lg font-[PPFONT] text-genesis-navy leading-snug group-hover:text-genesis-red transition-colors duration-200">
+                <h3 className="text-sm sm:text-base md:text-lg font-[PPFONT] text-genesis-navy leading-snug group-hover:text-genesis-red transition-colors duration-200">
                   {report.title}
                 </h3>
 
-                <p className="text-xs text-gray-500 font-poppins leading-relaxed flex-1">
+                <p className="text-[10px] xs:text-xs sm:text-xs text-gray-500 font-poppins leading-relaxed flex-1">
                   {report.description}
                 </p>
 
@@ -140,10 +168,9 @@ const ReportsAndUpdates = () => {
               </div>
             ))}
 
-            {/* Empty state when filter returns no results */}
             {filtered.length === 0 && (
-              <div className="col-span-2 flex items-center justify-center py-20">
-                <p className="text-sm text-gray-400 font-poppins uppercase tracking-widest">
+              <div className="col-span-2 flex items-center justify-center py-16 sm:py-20">
+                <p className="text-xs sm:text-sm text-gray-400 font-poppins uppercase tracking-widest text-center">
                   No reports available for this category.
                 </p>
               </div>

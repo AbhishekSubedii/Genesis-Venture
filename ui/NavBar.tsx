@@ -13,7 +13,6 @@ const navLinks = [
     dropdown: [
       { label: "Firm", href: "/About#firm" },
       { label: "Our Values", href: "/About#our-values" },
-      { label: "Our History", href: "/About#our-history" },
       { label: "Leadership", href: "/About#leadership" },
     ],
   },
@@ -84,7 +83,7 @@ export default function NavBar() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-transform duration-300 ease-in-out"
+      className="fixed top-0 left-0 right-0 z-999 flex flex-col transition-transform duration-300 ease-in-out"
       style={{ transform: showNavbar ? "translateY(0)" : "translateY(-100%)" }}
     >
       <nav
@@ -128,7 +127,7 @@ export default function NavBar() {
                     ? "text-genesis-red"
                     : "text-genesis-navy hover:text-genesis-red"
                 }
-                ${scrolled ? "text-genesis-navy" : "text-white hover:text-genesis-red"}
+                ${scrolled ? "text-genesis-navy" : "text-white hover:text-white/50"}
                 `}
               >
                 {label}

@@ -34,6 +34,23 @@ const PerspectiveHero = () => {
       delay: 0.5,
     });
 
+    gsap.from(".stat-item", {
+      opacity: 0,
+      y: 16,
+      stagger: 0.08,
+      duration: 0.8,
+      ease: "power2.out",
+      delay: 0.8,
+    });
+
+    gsap.from(".nav-tabs", {
+      opacity: 0,
+      y: -10,
+      duration: 0.6,
+      ease: "power2.out",
+      delay: 0.2,
+    });
+
     return () => {
       splitTitle.revert();
       splitDesc.revert();
@@ -41,8 +58,7 @@ const PerspectiveHero = () => {
   });
 
   return (
-    <section className="relative h-screen w-full flex flex-col justify-between items-center px-8 md:px-16 pt-32 pb-12 overflow-hidden">
-      {/* Background video */}
+    <section className="relative min-h-svh w-full flex flex-col justify-between items-center px-5 sm:px-8 md:px-16 pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 md:pb-12 overflow-hidden">
       <video
         autoPlay
         muted
@@ -50,63 +66,54 @@ const PerspectiveHero = () => {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover -z-20"
       >
-        <source src="/videos/night-sky.mp4" type="video/mp4" />
+        <source src="/videos/insights.mp4" type="video/mp4" />
       </video>
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-genesis-navy/30 -z-10" />
 
-      {/* Top label */}
-      <div className="hero-heading w-full flex items-start justify-between border-b border-white/10 pb-3">
-        <span className="text-xs uppercase tracking-widest text-white/40 font-poppins">
-          Perspective
-        </span>
-        <span className="text-xs uppercase tracking-widest text-white/40 font-poppins">
-          04
-        </span>
+      <div className="nav-tabs flex gap-0 border border-white/10 mt-2 w-full sm:w-auto">
+        <a
+          href="#market-insights"
+          className="flex-1 sm:flex-none text-center px-5 sm:px-6 py-2.5 text-[10px] sm:text-xs uppercase tracking-widest font-poppins text-white bg-genesis-navy hover:bg-white/20 transition-colors duration-150"
+        >
+          Market Insights
+        </a>
+        <a
+          href="#media"
+          className="flex-1 sm:flex-none text-center px-5 sm:px-6 py-2.5 text-[10px] sm:text-xs uppercase tracking-widest font-poppins text-white/50 hover:text-white hover:bg-white/10 transition-colors duration-150"
+        >
+          Media
+        </a>
       </div>
 
-      {/* Center content */}
-      <div className="flex flex-col items-center gap-6 max-w-2xl text-center">
-        <h1 className="hero-heading text-4xl md:text-5xl lg:text-6xl text-white leading-tight font-[PPFONT]">
+      <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-xs sm:max-w-lg md:max-w-2xl text-center px-2 sm:px-0">
+        <h1 className="hero-heading text-[2.4rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl text-white font-[PPFONT]">
           Insight over
           <br />
-          <span className="italic text-white/50">noise.</span>
+          noise.
         </h1>
-        <p className="desc text-sm text-white/70 font-poppins leading-relaxed max-w-md">
+        <p className="desc text-xs sm:text-sm text-white/80 font-poppins leading-relaxed max-w-70 sm:max-w-sm md:max-w-md">
           Our team of investors and analysts share what they&apos;re seeing
           across markets, sectors, and the founders shaping the next decade.
         </p>
-
-        {/* Nav tabs */}
-        <div className="flex gap-0 border border-white/10 mt-2">
-          <a
-            href="#market-insights"
-            className="px-6 py-2.5 text-xs uppercase tracking-widest font-poppins text-white bg-white/10 hover:bg-white/20 transition-colors duration-150"
-          >
-            Market Insights
-          </a>
-          <a
-            href="#media"
-            className="px-6 py-2.5 text-xs uppercase tracking-widest font-poppins text-white/50 hover:text-white hover:bg-white/10 transition-colors duration-150"
-          >
-            Media
-          </a>
-        </div>
       </div>
 
-      {/* Bottom stats bar */}
-      <div className="flex flex-wrap gap-6 w-full justify-between text-center md:gap-16 border-t border-white/10 pt-8">
-        {stats.map(({ value, label }) => (
-          <div key={label} className="flex flex-col justify-between gap-1">
-            <span className="text-xl md:text-2xl text-white font-[PPFONT]">
-              {value}
-            </span>
-            <span className="text-xs text-white/50 uppercase tracking-widest font-poppins">
-              {label}
-            </span>
-          </div>
-        ))}
+      <div className="w-full border-t border-white/10 pt-6 sm:pt-8">
+        {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-4 sm:gap-0 sm:flex sm:justify-between sm:items-end">
+          {stats.map(({ value, label }) => (
+            <div
+              key={label}
+              className="stat-item flex flex-col gap-1 text-center sm:text-left"
+            >
+              <span className="text-xl sm:text-2xl md:text-3xl text-white font-[PPFONT] leading-none">
+                {value}
+              </span>
+              <span className="text-[9px] sm:text-[10px] md:text-xs text-white/50 uppercase tracking-widest font-poppins">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div> */}
       </div>
     </section>
   );

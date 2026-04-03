@@ -1,28 +1,12 @@
 "use client";
-import Button from "@/ui/Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ImagePlayer } from "../image-player";
-import Image from "next/image";
+import Button from "../ui/Button2";
+import Link from "next/link";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
-
-const stats = [
-  { value: "$2.4B+", label: "AUM" },
-  { value: "80+", label: "Portfolio Co." },
-  { value: "30+", label: "Years" },
-  { value: "12", label: "Countries" },
-  { value: "14", label: "IPOs" },
-];
-const IMAGES = [
-  "/images/hero/img1.jpg",
-  "/images/hero/img2.jpg",
-  "/images/hero/img3.jpg",
-  "/images/hero/img4.jpg",
-  "/images/hero/img5.jpg",
-];
 
 export default function Hero() {
   useGSAP(() => {
@@ -36,6 +20,7 @@ export default function Hero() {
       duration: 1,
       ease: "power3.out",
     });
+
     const splitDesc = new SplitText(".desc", { type: "lines" });
 
     gsap.from(splitDesc.lines, {
@@ -53,102 +38,53 @@ export default function Hero() {
   });
 
   return (
-    <section className="h-screen w-full bg-genesis-navy relative overflow-hidden flex flex-col items-center justify-center gap-10 px-8 md:px-16 pt-20 md:pt-32 pb-8 md:pb-12">
-      {/* <Image
-        src="/images/hero/try1.jpg"
-        alt="hero image"
-        fill
-        className="object-cover"
-      /> */}
+    <section className="relative w-full min-h-screen overflow-hidden flex flex-col items-center justify-center bg-genesis-navy px-4 xs:px-6 sm:px-8 md:px-16 pt-16 xs:pt-20 md:pt-28 lg:pt-32 pb-24 xs:pb-28 sm:pb-16 md:pb-12">
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/videos/night-sky.mp4" type="video/mp4" />
+        <source src="/videos/final1.mp4" type="video/mp4" />
       </video>
 
-      {/* <ImagePlayer
-        images={IMAGES}
-        interval={3000}
-        renderImage={(src) => (
-          <Image
-            src={src}
-            fill
-            className="size-full object-cover inline-block align-middle"
-            alt="showcalse"
-          />
-        )}
-      /> */}
-      <div className="absolute inset-0 bg-genesis-navy/30"></div>
+      <div className="absolute inset-0 bg-genesis-navy/30" />
 
-      {/* <div
-        className="absolute top-[-10%] right-[-5%] w-125 h-125 rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(139,26,46,0.18) 0%, transparent 70%)",
-        }}
-      /> */}
-
-      {/* <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/40 to-black/80"></div> */}
-      <p className="absolute bottom-40 right-0 text-5xl font-[PPFONT] leading-tight text-white/8 select-none pointer-events-none pr-4">
+      <p className="absolute bottom-24 xs:bottom-28 sm:bottom-32 md:bottom-36 right-2 xs:right-3 sm:right-4 text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-[PPFONT] leading-tight text-white/30 select-none pointer-events-none">
         established in
       </p>
-      <div className="absolute bottom-0 right-0 text-[10vw] font-[PPFONT] leading-none text-white/8 select-none pointer-events-none pr-4">
+
+      <div className="absolute bottom-0 right-2 xs:right-3 sm:right-4 text-[14vw] sm:text-[12vw] md:text-[10vw] font-[PPFONT] leading-none text-white/30 select-none pointer-events-none">
         1991
       </div>
 
-      {/* Top meta */}
-      {/* <div className="relative flex items-start justify-between">
-        <span className="text-xs uppercase tracking-widest text-white/50 font-poppins">
-          Est. 1991 — Kathmandu, Nepal
-        </span>
-        <span className="text-xs uppercase tracking-widest text-white/50 font-poppins">
-          Venture Capital
-        </span>
-        <div className="flex items-center gap-3">
-          <div className="w-6 h-px bg-genesis-red" />
-          <span className="text-xs uppercase tracking-widest text-genesis-red font-poppins">
-            Early-Stage Investment
-          </span>
-        </div>
-      </div> */}
-
-      {/* Main content */}
-      <div className="relative flex flex-col   text-center gap-4 md:gap-6">
-        <h1 className="hero-heading text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-[PPFONT] text-white leading-tight">
+      <div className="relative z-10 flex flex-col items-center text-center gap-4 sm:gap-5 md:gap-6 w-full max-w-5xl mx-auto">
+        <h1 className="hero-heading text-[clamp(1.75rem,7vw,4.5rem)] font-[PPFONT] text-white leading-tight tracking-tight">
           Creating Long Term
           <br />
           Sustainable Wealth
         </h1>
-        <p className="desc text-sm text-white/80 font-poppins max-w-lg mx-auto leading-relaxed hidden sm:block">
+
+        {/* <p className="desc text-xs xs:text-sm sm:text-base text-white/80 font-poppins max-w-[90%] xs:max-w-sm sm:max-w-md md:max-w-2xl mx-auto leading-relaxed">
           Genesis Ventures partners with founders at the earliest stages,
           providing capital, strategy, and long-term support across high-growth
           sectors.
-        </p>
+        </p> */}
       </div>
 
-      {/* Bottom: CTA + stats */}
-      <Button text="Get in touch" href="/Contacts" className="relative z-50 " />
+      {/* <div className="relative z-50 mt-6 sm:mt-8 md:mt-10">
+        <Button text="About Us" href="/About" />
+      </div> */}
+      <Link href="/About">
+        <Button
+          variant="primary"
+          size="md"
+          className="mt-12 bg-genesis-navy px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white hover:bg-genesis-navy/80 transition-colors"
+        >
+          <span className="inline-flex items-center gap-3">About Us</span>
+        </Button>
+      </Link>
     </section>
   );
-}
-{
-  /* <div className="flex gap-4 md:gap-6 flex-wrap">
-          {stats.map(({ value, label }) => (
-            <div
-              key={label}
-              className="flex flex-col gap-0.5 border-l border-white/10 pl-3"
-            >
-              <span className="text-sm md:text-lg text-white font-[PPFONT] leading-none">
-                {value}
-              </span>
-              <span className="text-xs text-white/50 font-poppins uppercase tracking-wider leading-tight">
-                {label}
-              </span>
-            </div>
-          ))}
-        </div> */
 }

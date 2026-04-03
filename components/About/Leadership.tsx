@@ -124,7 +124,7 @@ export default function Leadership() {
           Leadership
         </span>
         <span className="leadership-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
-          04
+          03
         </span>
       </div>
 

@@ -1,20 +1,9 @@
 "use client";
-import Button from "@/ui/Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ImagePlayer } from "../image-player";
-import Image from "next/image";
 import { SplitText } from "gsap/all";
 
 gsap.registerPlugin(SplitText);
-
-const IMAGES = [
-  "/images/hero/img1.jpg",
-  "/images/hero/img2.jpg",
-  "/images/hero/img3.jpg",
-  "/images/hero/img4.jpg",
-  "/images/hero/img5.jpg",
-];
 
 const Hero = () => {
   useGSAP(() => {
@@ -44,67 +33,36 @@ const Hero = () => {
       splitDesc.revert();
     };
   });
+
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-between px-8 md:px-16 pt-32 pb-12">
-      {/* <ImagePlayer
-        images={IMAGES}
-        interval={3000}
-        renderImage={(src) => (
-          <Image
-            src={src}
-            fill
-            className="size-full object-cover inline-block align-middle -z-20"
-            alt="showcalse"
-          />
-        )}
-      /> */}
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-between px-4 xs:px-6 sm:px-8 md:px-16 pt-20 xs:pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 md:pb-12 overflow-hidden">
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        className="absolute top-0 left-0 w-full h-full object-cover -z-20"
       >
-        <source src="/videos/night-sky.mp4" type="video/mp4" />
+        <source src="/videos/relation.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-genesis-navy/30 -z-20"></div>
+      <div className="absolute inset-0 bg-genesis-navy/30 -z-10" />
 
-      <div className="flex items-start justify-between border-b border-white/10 pb-6">
-        <span className="hero-heading text-xs uppercase tracking-widest text-white/40 font-poppins">
-          Investor Relations
-        </span>
+      <div className="w-full flex items-start justify-between border-b border-white/10 pb-3 sm:pb-4 md:pb-6">
       </div>
 
-      <div className="flex flex-col justify-center text-center gap-6 max-w-2xl">
-        <h1 className="hero-heading text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
-          Transparent insights into Genesis Ventures’
-          <br />
-          performance and strategy
+      <div className="flex flex-col justify-center text-center gap-3 sm:gap-4 md:gap-6 w-full max-w-xs xs:max-w-sm sm:max-w-md md:max-w-2xl px-2">
+        <h1 className="hero-heading text-[clamp(1.6rem,5vw,3.75rem)] text-white leading-tight font-[PPFONT]">
+          Transparent insights into Genesis Ventures' performance and strategy
         </h1>
-        <p className="desc text-sm  text-white/80 font-poppins leading-relaxed max-w-md mx-auto">
+        <p className="desc text-xs xs:text-sm text-white/80 font-poppins leading-relaxed max-w-xs sm:max-w-sm mx-auto">
           We provide our partners with clear visibility into capital allocation,
           portfolio performance, and strategic updates. Your trust drives our
           commitment to long-term growth.
         </p>
       </div>
 
-      <div className="flex flex-wrap w-full justify-between gap-6 md:gap-16 border-t border-white/10 pt-8">
-        {[
-          { value: "$2.4B+", label: "Assets Under Management" },
-          { value: "80+", label: "Portfolio Companies" },
-          { value: "30+", label: "Years of Experience" },
-          { value: "12", label: "Countries" },
-          { value: "14", label: "IPOs" },
-        ].map(({ value, label }) => (
-          <div key={label} className="flex flex-col gap-1">
-            <span className="text-xl md:text-2xl text-white font-[PPFONT]">
-              {value}
-            </span>
-            <span className="text-xs text-white/50 uppercase tracking-widest font-poppins">
-              {label}
-            </span>
-          </div>
-        ))}
+      <div className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-5 gap-4 sm:gap-6 md:gap-16 w-full border-t border-white/10 pt-5 sm:pt-6 md:pt-8">
+        
       </div>
     </section>
   );
