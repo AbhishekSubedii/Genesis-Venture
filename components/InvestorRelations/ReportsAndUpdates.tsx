@@ -108,7 +108,8 @@ const ReportsAndUpdates = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-px flex-1 min-h-0">
-        <div className="hidden md:block md:w-1/3 relative self-stretch min-h-[50vh]">
+        <div className="hidden md:block md:w-1/3 md:self-start md:sticky md:top-24">
+          <div className="relative overflow-hidden h-[26rem] lg:h-[34rem] xl:h-[38rem]">
           <video
             autoPlay
             muted
@@ -118,6 +119,7 @@ const ReportsAndUpdates = () => {
           >
             <source src="/videos/city.mp4" type="video/mp4" />
           </video>
+          </div>
         </div>
 
         <div className="w-full md:w-2/3 flex flex-col gap-4 sm:gap-6 md:gap-8 md:p-8">
