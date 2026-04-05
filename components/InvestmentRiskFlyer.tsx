@@ -99,12 +99,16 @@ export default function InvestmentRiskModal({ onClose }: Props) {
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
+      onWheel={(e) => e.preventDefault()}
+      onTouchMove={(e) => e.preventDefault()}
     >
       {/* Modal panel — stop propagation so clicks inside don't bubble to backdrop */}
       <div
         ref={modalRef}
         className={`${playfair.variable} relative w-full max-w-3xl h-[90vh] bg-white flex flex-col overflow-hidden overscroll-none`}
         onMouseDown={(e) => e.stopPropagation()}
+        onWheel={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
       >
         {/* Top accent bar */}
         <div className="h-1 w-full bg-genesis-navy shrink-0" />
@@ -149,7 +153,7 @@ export default function InvestmentRiskModal({ onClose }: Props) {
         </div>
 
         {/* Scrollable body */}
-        <div className="flex-1 overflow-y-scroll overscroll-contain px-6 sm:px-10 py-6 space-y-8">
+        <div className="flex-1 overflow-y-scroll overscroll-auto scroll-smooth px-6 sm:px-10 py-6 space-y-8">
           <div className="border-l-2 border-genesis-navy bg-gray-50 px-4 py-4">
             <p className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed">
               <span className="text-genesis-navy font-semibold">
