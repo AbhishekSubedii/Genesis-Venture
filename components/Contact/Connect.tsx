@@ -1,10 +1,10 @@
 "use client";
-import Button from "@/ui/Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useState } from "react";
+import Button from "../ui/Button2";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -88,125 +88,143 @@ export default function Connect() {
 
         <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(260px,0.9fr)] lg:gap-14">
           <div className="min-w-0">
-          {tab === "general" ? (
-            <form
-              className="flex flex-col gap-6 sm:gap-8"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <label className={labelClass}>First Name</label>
-                  <input
-                    type="text"
-                    placeholder="Jane"
-                    className={inputClass}
-                  />
+            {tab === "general" ? (
+              <form
+                className="flex flex-col gap-6 sm:gap-8"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>First Name</label>
+                    <input
+                      type="text"
+                      placeholder="Jane"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>Last Name</label>
+                    <input
+                      type="text"
+                      placeholder="Smith"
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <label className={labelClass}>Last Name</label>
-                  <input
-                    type="text"
-                    placeholder="Smith"
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className={labelClass}>Email</label>
-                <input
-                  type="email"
-                  placeholder="jane@company.com"
-                  className={inputClass}
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className={labelClass}>Message</label>
-                <textarea
-                  rows={5}
-                  placeholder="How can we help?"
-                  className={`${inputClass} resize-none`}
-                />
-              </div>
-              <Button text="Send Message" />
-            </form>
-          ) : (
-            <form
-              className="flex flex-col gap-6 sm:gap-8"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <label className={labelClass}>First Name</label>
-                  <input
-                    type="text"
-                    placeholder="Jane"
-                    className={inputClass}
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className={labelClass}>Last Name</label>
-                  <input
-                    type="text"
-                    placeholder="Smith"
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <label className={labelClass}>Email</label>
                   <input
                     type="email"
-                    placeholder="jane@startup.com"
+                    placeholder="jane@company.com"
                     className={inputClass}
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className={labelClass}>Phone</label>
+                  <label className={labelClass}>Message</label>
+                  <textarea
+                    rows={5}
+                    placeholder="How can we help?"
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+                {/* <Button text="Send Message" /> */}
+                <Button
+                  variant="primary"
+                  size="md"
+                  className="mt-12 bg-genesis-navy w-46 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white hover:bg-genesis-navy/80 transition-colors"
+                >
+                  <span className="inline-flex items-center gap-3">
+                    Send Message
+                  </span>
+                </Button>
+              </form>
+            ) : (
+              <form
+                className="flex flex-col gap-6 sm:gap-8"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>First Name</label>
+                    <input
+                      type="text"
+                      placeholder="Jane"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>Last Name</label>
+                    <input
+                      type="text"
+                      placeholder="Smith"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>Email</label>
+                    <input
+                      type="email"
+                      placeholder="jane@startup.com"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>Phone</label>
+                    <input
+                      type="tel"
+                      placeholder="+1 (212) 000-0000"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Company / Startup Name</label>
                   <input
-                    type="tel"
-                    placeholder="+1 (212) 000-0000"
+                    type="text"
+                    placeholder="Acme Inc."
                     className={inputClass}
                   />
                 </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className={labelClass}>Company / Startup Name</label>
-                <input
-                  type="text"
-                  placeholder="Acme Inc."
-                  className={inputClass}
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className={labelClass}>Brief Description</label>
-                <textarea
-                  rows={5}
-                  placeholder="What are you building and what stage are you at?"
-                  className={`${inputClass} resize-none`}
-                />
-              </div>
-              <Button text="Submit Pitch" />
-            </form>
-          )}
-        </div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>Brief Description</label>
+                  <textarea
+                    rows={5}
+                    placeholder="What are you building and what stage are you at?"
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+                {/* <Button text="Submit Pitch" /> */}
+                <Button
+                  variant="primary"
+                  size="md"
+                  className="mt-12 bg-genesis-navy w-45 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white hover:bg-genesis-navy/80 transition-colors"
+                >
+                  <span className="inline-flex  items-center gap-3">
+                    Submit Pitch
+                  </span>
+                </Button>
+              </form>
+            )}
+          </div>
 
           <aside className="flex flex-col justify-between border-t border-genesis-navy/10 pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10 xl:pl-12">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-8">
-            {contactDetails.map(({ label, value }) => (
-              <div
-                key={label}
-                className="flex flex-col gap-1.5 border-l border-genesis-navy/10 pl-4"
-              >
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 font-poppins">
-                  {label}
-                </span>
-                <span className="text-sm text-genesis-navy font-poppins">
-                  {value}
-                </span>
-              </div>
-            ))}
-          </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-8">
+              {contactDetails.map(({ label, value }) => (
+                <div
+                  key={label}
+                  className="flex flex-col gap-1.5 border-l border-genesis-navy/10 pl-4"
+                >
+                  <span className="text-[10px] uppercase tracking-widest text-gray-500 font-poppins">
+                    {label}
+                  </span>
+                  <span className="text-sm text-genesis-navy font-poppins">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
           </aside>
         </div>
       </div>
