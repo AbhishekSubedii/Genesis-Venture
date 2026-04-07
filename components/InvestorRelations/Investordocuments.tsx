@@ -1,10 +1,11 @@
 ﻿"use client";
-import Button from "@/ui/Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/dist/client/link";
 import { useRef } from "react";
+import Button from "../ui/Button2";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -219,7 +220,16 @@ const InvestorDocuments = () => {
 
             <div className="border-t border-gray-100" />
 
-            <Button text="Download PDF" />
+            {/* <Button text="Download PDF" /> */}
+            <Link href="/About">
+              <Button
+                variant="primary"
+                size="md"
+                className="mt-12 bg-genesis-navy px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white hover:bg-genesis-navy/80 transition-colors"
+              >
+                <span className="inline-flex items-center gap-3">Download PDF</span>
+              </Button>
+            </Link>
           </div>
         ))}
       </div>

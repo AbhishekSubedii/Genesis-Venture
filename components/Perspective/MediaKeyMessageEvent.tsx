@@ -5,8 +5,9 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import Button from "@/ui/Button";
 import { media } from "@/lib/media";
+import Link from "next/dist/client/link";
+import Button from "../ui/Button2";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -94,10 +95,21 @@ const Media = () => {
                 <span className="text-[10px] xs:text-xs text-gray-400 font-poppins tracking-wide">
                   {item.source}
                 </span>
-                <Button
+                {/* <Button
                   text="Read More"
                   href={`/perspective/media/${item.slug}`}
-                />
+                /> */}
+                <Link href={`/perspective/media/${item.slug}`}>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    className="mt-12 bg-genesis-navy px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white hover:bg-genesis-navy/80 transition-colors"
+                  >
+                    <span className="inline-flex items-center gap-3">
+                      Read More
+                    </span>
+                  </Button>
+                </Link>
               </div>
             </div>
           </article>
