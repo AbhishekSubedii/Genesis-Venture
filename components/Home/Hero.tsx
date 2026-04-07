@@ -22,19 +22,7 @@ export default function Hero() {
         duration: 1,
         ease: "power3.out",
       });
-      let pinTrigger: ScrollTrigger | null = null;
       let videoTween: gsap.core.Tween | null = null;
-
-      if (sectionRef.current) {
-        pinTrigger = ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=100%",
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-        });
-      }
 
       if (sectionRef.current && videoRef.current) {
         videoTween = gsap.to(videoRef.current, {
@@ -52,7 +40,6 @@ export default function Hero() {
 
       return () => {
         titleTween.kill();
-        pinTrigger?.kill();
         videoTween?.kill();
         splitTitle.revert();
       };
