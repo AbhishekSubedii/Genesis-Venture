@@ -120,7 +120,7 @@ export default function Sectors() {
         </div>
         <div className="relative w-full md:w-1/2 md:order-1 h-[40vh] xs:h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
           <Image
-            src="/images/projects/sectors.jpeg"
+            src="/images/sectors.jpeg"
             alt="Invested sectors"
             fill
             className="object-cover"

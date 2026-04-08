@@ -41,7 +41,7 @@ export default function Devider() {
       className="relative h-screen min-h-screen w-full overflow-hidden"
     >
       <Image
-        src="/images/projects/grow.png"
+        src="/images/grow.png"
         alt="Growth visual divider"
         fill
         className="object-cover"

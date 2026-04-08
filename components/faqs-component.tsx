@@ -160,7 +160,7 @@ export default function FAQs() {
 
           <div className="relative h-80 sm:h-100 md:col-span-2 md:h-full md:min-h-135 lg:min-h-150">
             <Image
-              src="/images/projects/upp.png"
+              src="/images/upp.png"
               alt="Frequently Asked Questions"
               fill
               className="object-cover brightness-150"

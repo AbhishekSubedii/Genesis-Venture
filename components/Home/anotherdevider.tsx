@@ -43,7 +43,7 @@ export default function AnotherDevider() {
       className="relative h-screen min-h-screen w-full overflow-hidden"
     >
       <Image
-        src="/images/projects/newddd.png"
+        src="/images/newddd.png"
         alt="Project visual divider"
         fill
         className="object-cover"
