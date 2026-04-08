@@ -10,16 +10,8 @@ import Button from "../ui/Button2";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-const stats = [
-  { value: "1991", label: "Founded" },
-  { value: "Kathmandu", label: "Headquarters" },
-  { value: "$2.4B+", label: "Assets Under Management" },
-  { value: "80+", label: "Portfolio Companies" },
-];
-
 export default function AboutUs() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const splitTitle = new SplitText(".about-heading", { type: "words" });
@@ -70,21 +62,6 @@ export default function AboutUs() {
       },
     );
 
-    gsap.from(".about-stat", {
-      scrollTrigger: {
-        trigger: statsRef.current,
-        start: "top 95%",
-        end: "bottom 80%",
-        scrub: true,
-      },
-      opacity: 0,
-      y: 30,
-      filter: "blur(10px)",
-      stagger: 0.05,
-      duration: 1,
-      ease: "power3.out",
-    });
-
     return () => {
       splitTitle.revert();
     };
@@ -95,28 +72,6 @@ export default function AboutUs() {
       ref={containerRef}
       className="w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
     >
-      {/* Stats row — mirrors landing page pattern */}
-      <div className="w-full mb-10 sm:mb-14 md:mb-20">
-        <div
-          ref={statsRef}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-10 md:gap-x-50"
-        >
-          {stats.map(({ value, label }) => (
-            <div
-              key={label}
-              className="about-stat flex flex-col gap-1 border-l border-gray-200 pl-3 sm:pl-4 md:pl-5"
-            >
-              <span className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-5xl font-[PPFONT] text-genesis-navy">
-                {value}
-              </span>
-              <span className="text-[10px] xs:text-xs text-gray-500 uppercase tracking-widest font-poppins leading-tight">
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Section label */}
       <div className="flex items-start justify-between border-b border-gray-200">
         <span className="about-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
@@ -182,7 +137,7 @@ export default function AboutUs() {
         {/* Right: image */}
         <div className="relative w-full md:w-1/2 h-[40vh] xs:h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
           <Image
-            src="/images/about/about-us.jpg"
+            src="/images/bull.jpeg"
             alt="About Genesis Ventures"
             fill
             className="object-cover"

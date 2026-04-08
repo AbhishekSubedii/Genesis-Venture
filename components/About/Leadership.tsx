@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
@@ -8,52 +8,26 @@ import { useRef } from "react";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-interface Member {
-  name: string;
-  title: string;
-  imageURL: string;
-}
-
-const team: Member[] = [
+const leadershipPoints = [
   {
-    name: "Anthony Roselli",
-    title: "Managing Partner",
-    imageURL: "/images/leadership/anthony-roselli.avif",
+    title: "Strategic Judgment",
+    description:
+      "We make long-term decisions with clarity, discipline, and a strong sense of timing across changing market conditions.",
   },
   {
-    name: "Joseph Roselli",
-    title: "General Partner",
-    imageURL: "/images/leadership/joseph-roselli.avif",
+    title: "Founder Partnership",
+    description:
+      "Leadership at Genesis is hands-on where it matters most, supporting founders through key decisions, growth, and inflection points.",
   },
   {
-    name: "Diego Caballero",
-    title: "General Partner",
-    imageURL: "/images/leadership/diego-caballero.avif",
+    title: "Operational Perspective",
+    description:
+      "Our approach combines capital allocation with real operating insight, helping businesses scale with greater resilience and focus.",
   },
   {
-    name: "Mithun Islam",
-    title: "Partner",
-    imageURL: "/images/leadership/mithun-islam.avif",
-  },
-  {
-    name: "Scott Walker",
-    title: "Principal",
-    imageURL: "/images/leadership/scott-walker.avif",
-  },
-  {
-    name: "Angie Silva",
-    title: "Vice President",
-    imageURL: "/images/leadership/angie-silva.avif",
-  },
-  {
-    name: "Carlos Duque",
-    title: "Vice President",
-    imageURL: "/images/leadership/carlos-duque.avif",
-  },
-  {
-    name: "Kaela Fanning",
-    title: "Director, Marketing",
-    imageURL: "/images/leadership/kaela-fanning.avif",
+    title: "Governance First",
+    description:
+      "We believe disciplined governance creates better companies, stronger accountability, and more durable long-term outcomes.",
   },
 ];
 
@@ -75,6 +49,20 @@ export default function Leadership() {
       filter: "blur(10px)",
       stagger: 0.05,
       duration: 1,
+      ease: "power3.out",
+    });
+
+    gsap.from(".leadership-card", {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+        end: "top 30%",
+        scrub: true,
+      },
+      opacity: 0,
+      y: 24,
+      stagger: 0.08,
+      duration: 0.8,
       ease: "power3.out",
     });
 
@@ -113,61 +101,52 @@ export default function Leadership() {
       splitTitle.revert();
     };
   });
+
   return (
     <section
       id="leadership"
       ref={containerRef}
-      className="relative bg-white min-h-screen w-full flex flex-col px-8 md:px-16 py-16 md:py-24"
+      className="relative flex min-h-screen w-full flex-col bg-white px-4 py-16 xs:px-6 sm:px-8 md:px-16 md:py-24"
     >
-      <div className="flex items-start justify-between border-b border-gray-200 pb-6 mb-10">
-        <span className="leadership-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
+      <div className="mb-10 flex items-start justify-between border-b border-gray-200 pb-6">
+        <span className="leadership-heading font-poppins text-xs uppercase tracking-widest text-gray-500">
           Leadership
-        </span>
-        <span className="leadership-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
-          03
         </span>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-12">
-        <div className="md:w-1/3">
-          <h2 className="leadership-heading text-2xl md:text-3xl text-genesis-navy leading-snug">
-            The team behind the portfolio.
+      <div className="mb-12 flex flex-col gap-10 md:mb-16 md:flex-row md:gap-20">
+        <div className="w-full md:max-w-xl">
+          <h2 className="leadership-heading font-[PPFONT] text-[clamp(1.8rem,4vw,3rem)] leading-[1.08] text-genesis-navy">
+            Leadership built on judgment, discipline, and long-term partnership.
           </h2>
+        </div>
+        <div className="w-full md:max-w-md">
           <p
             id="animated-paragraph"
-            className="text-sm text-gray-600 font-poppins leading-relaxed mt-4 max-w-xs"
+            className="font-poppins text-sm leading-7 text-gray-600"
           >
-            Experienced operators and investors who have built, scaled, and
-            exited companies across every major sector.
+            Genesis brings a leadership approach shaped by rigorous thinking,
+            active partnership, and a commitment to building resilient
+            businesses over time.
           </p>
         </div>
       </div>
 
-      {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
-        {team.map(({ name, title, imageURL }) => (
-          <div
-            key={name}
-            className="bg-white flex flex-col group overflow-hidden"
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {leadershipPoints.map(({ title, description }) => (
+          <article
+            key={title}
+            className="leadership-card border border-black/10 bg-white/75 px-5 py-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-6 sm:py-7 md:px-7"
           >
-            <div className="relative w-full aspect-3/4 overflow-hidden">
-              <Image
-                src={imageURL}
-                alt={name}
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              />
-            </div>
-            <div className="p-4 flex flex-col gap-0.5">
-              <span className="text-sm text-genesis-navy font-[PPFONT]">
-                {name}
-              </span>
-              <span className="text-xs text-gray-400 uppercase tracking-widest font-poppins">
-                {title}
-              </span>
-            </div>
-          </div>
+            <h3 className="font-[PPFONT] text-[1.2rem] leading-tight text-genesis-navy">
+              {title}
+            </h3>
+            <p className="mt-3 font-poppins text-sm leading-7 text-gray-600">
+              {description}
+            </p>
+          </article>
         ))}
-      </div> */}
+      </div>
     </section>
   );
 }

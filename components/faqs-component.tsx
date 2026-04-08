@@ -108,9 +108,9 @@ export default function FAQs() {
   return (
     <section
       ref={containerRef}
-      className="w-full min-h-screen bg-neutral-50 flex flex-col md:flex-row gap-8 sm:gap-12 md:gap-16 px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
+      className="w-full min-h-screen bg-neutral-50 px-4 py-8 xs:px-6 sm:px-8 sm:py-12 md:px-16 md:py-24"
     >
-      <div className="w-full flex flex-col gap-4 sm:gap-6 flex-1">
+      <div className="flex w-full flex-1 flex-col gap-4 sm:gap-6">
         <div className="flex items-start justify-between border-b border-gray-200 pb-3 sm:pb-4 md:pb-6">
           <span className="faq-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
             FAQs
@@ -120,49 +120,48 @@ export default function FAQs() {
           </span>
         </div>
 
-        <div className="flex flex-col gap-4 sm:gap-6 flex-1 pt-5 sm:pt-6 md:pt-10 overflow-hidden">
-          <div className="w-full md:w-1/3 flex flex-col gap-2 sm:gap-3">
-            <h2 className="faq-heading text-[clamp(1.25rem,4vw,2rem)] text-genesis-navy font-[PPFONT] leading-snug">
-              Frequently Asked Questions
-            </h2>
-            <p
-              id="animated-paragraph"
-              className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed max-w-xs hidden md:block"
-            >
-              Discover quick and comprehensive answers to common questions about
-              our platform, services, and features.
-            </p>
+        <div className="grid flex-1 grid-cols-1 gap-8 pt-5 sm:pt-6 md:grid-cols-3 md:gap-10 md:pt-10">
+          <div className="md:col-span-2 flex flex-col gap-4 sm:gap-6">
+            <div className="flex flex-col gap-2 sm:gap-3">
+              <h2 className="faq-heading text-[clamp(1.25rem,4vw,2rem)] text-genesis-navy font-[PPFONT] leading-snug">
+                Frequently Asked Questions
+              </h2>
+              <p
+                id="animated-paragraph"
+                className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed max-w-xl"
+              >
+                Discover quick and comprehensive answers to common questions
+                about our platform, services, and features.
+              </p>
+            </div>
+
+            <Accordion type="single" collapsible className="w-full py-3">
+              {faqItems.map((item) => (
+                <AccordionItem
+                  key={item.id}
+                  value={item.id}
+                  className="border-dotted"
+                >
+                  <AccordionTrigger className="cursor-pointer font-[PPFONT] text-sm sm:text-lg md:text-lg hover:no-underline text-left">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-xs md:text-sm font-poppins">
+                      {item.answer}
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-10">
-            <div className="w-full md:w-2/3 flex flex-col justify-center">
-              <Accordion type="single" collapsible className="w-full py-3 ">
-                {faqItems.map((item) => (
-                  <AccordionItem
-                    key={item.id}
-                    value={item.id}
-                    className="border-dotted"
-                  >
-                    <AccordionTrigger className="cursor-pointer font-[PPFONT] text-sm sm:text-lg md:text-lg hover:no-underline text-left">
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p className="text-xs md:text-sm font-poppins">
-                        {item.answer}
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-            <div className="relative w-full h-full md:w-1/3">
-              <Image
-                src="/images/hero/faq-image.jpg"
-                alt="Frequently Asked Questions"
-                fill
-                className="object-cover brightness-150"
-              />
-            </div>
+          <div className="relative h-[360px] sm:h-[420px] md:col-span-1 md:h-full md:min-h-[640px]">
+            <Image
+              src="/images/projects/climb.png"
+              alt="Frequently Asked Questions"
+              fill
+              className="object-cover brightness-150"
+            />
           </div>
         </div>
       </div>
