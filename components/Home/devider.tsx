@@ -18,30 +18,16 @@ export default function Devider() {
     gsap.from(splitTitle.words, {
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 85%",
-        end: "top 30%",
+        start: "top 90%",
+        end: "bottom 80%",
         scrub: true,
       },
       opacity: 0,
-      y: 28,
+      y: 30,
       filter: "blur(10px)",
-      stagger: 0.04,
-      duration: 0.9,
+      stagger: 0.05,
+      duration: 1,
       ease: "power3.out",
-    });
-
-    gsap.from(".devider-fade", {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 85%",
-        end: "top 30%",
-        scrub: true,
-      },
-      opacity: 0,
-      y: 24,
-      stagger: 0.1,
-      duration: 0.8,
-      ease: "power2.out",
     });
 
     return () => {
@@ -66,7 +52,6 @@ export default function Devider() {
           <h2 className="devider-title font-[PPFONT] text-[clamp(1.8rem,4.6vw,4.4rem)] leading-[1.18] text-white">
             Backing bold ideas before the market catches on.
           </h2>
-          <div className="devider-fade mx-auto mt-4 h-px w-[58%] bg-white/55" />
         </div>
       </div>
     </section>

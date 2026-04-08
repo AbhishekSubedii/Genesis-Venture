@@ -10,8 +10,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Link from "next/link";
 import Image from "next/image";
+import HeroSectionTitle from "./ui/HeroSectionTitle";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -120,15 +120,18 @@ export default function FAQs() {
           </span>
         </div>
 
-        <div className="grid flex-1 grid-cols-1 gap-8 pt-5 sm:pt-6 md:grid-cols-3 md:gap-10 md:pt-10">
-          <div className="md:col-span-2 flex flex-col gap-4 sm:gap-6">
+        <div className="grid flex-1 grid-cols-1 gap-8 pt-5 sm:pt-6 md:grid-cols-5 md:gap-10 md:pt-10">
+          <div className="md:col-span-3 flex flex-col gap-4 sm:gap-6 md:pt-16 lg:pt-20">
             <div className="flex flex-col gap-2 sm:gap-3">
-              <h2 className="faq-heading text-[clamp(1.25rem,4vw,2rem)] text-genesis-navy font-[PPFONT] leading-snug">
-                Frequently Asked Questions
-              </h2>
+              <HeroSectionTitle
+                as="h2"
+                className="faq-heading text-[clamp(1.5rem,4.6vw,3rem)] text-genesis-navy leading-[1.12] font-[PPFONT]"
+                prefix="Frequently Asked"
+                highlight="Questions"
+              />
               <p
                 id="animated-paragraph"
-                className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed max-w-xl"
+                className="max-w-2xl text-sm sm:text-base text-gray-600 font-poppins leading-8"
               >
                 Discover quick and comprehensive answers to common questions
                 about our platform, services, and features.
@@ -155,9 +158,9 @@ export default function FAQs() {
             </Accordion>
           </div>
 
-          <div className="relative h-[360px] sm:h-[420px] md:col-span-1 md:h-full md:min-h-[640px]">
+          <div className="relative h-80 sm:h-100 md:col-span-2 md:h-full md:min-h-135 lg:min-h-150">
             <Image
-              src="/images/projects/climb.png"
+              src="/images/projects/upp.png"
               alt="Frequently Asked Questions"
               fill
               className="object-cover brightness-150"

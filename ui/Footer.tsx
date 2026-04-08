@@ -27,11 +27,11 @@ const resources = [
 
 export default function Footer() {
   return (
-    <footer className="relative w-full min-h-[780px] overflow-hidden bg-genesis-navy text-white font-poppins">
+    <footer className="relative w-full min-h-195 overflow-hidden bg-genesis-navy text-white font-poppins">
       <div className="pointer-events-none absolute inset-0 bg-[url('/footer/footer.jpg')] bg-cover bg-center opacity-30" />
       <div className="pointer-events-none absolute inset-0 bg-black/30" />
 
-      <div className="relative z-10 flex min-h-[780px] flex-col">
+      <div className="relative z-10 flex min-h-195 flex-col">
         <div className="flex flex-1 flex-col gap-14 px-8 pb-20 pt-24 md:px-16 md:pb-24 md:pt-28">
           <div className="flex flex-col justify-between gap-14 md:flex-row">
             <div className="flex max-w-xl flex-col gap-3">

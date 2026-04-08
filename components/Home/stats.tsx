@@ -12,7 +12,7 @@ export default function Stats() {
         {stats.map(({ value, label, color }) => (
           <div
             key={label}
-            className="flex min-h-[180px] flex-col items-center justify-center gap-2 px-4 py-8 text-center sm:min-h-[220px] sm:px-6 md:px-8"
+            className="flex min-h-45 flex-col items-center justify-center gap-2 px-4 py-8 text-center sm:min-h-55 sm:px-6 md:px-8"
             style={{ backgroundColor: color }}
           >
             <span className="whitespace-nowrap text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-[PPFONT] text-white">

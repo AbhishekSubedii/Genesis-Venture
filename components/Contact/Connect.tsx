@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useState } from "react";
+import Image from "next/image";
 import Button from "../ui/Button2";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -15,13 +16,6 @@ const inputClass =
 
 const labelClass =
   "text-[11px] uppercase tracking-widest text-genesis-navy/60 font-poppins";
-
-const contactDetails = [
-  { label: "General", value: "contact@genesisventures.com" },
-  { label: "Pitch", value: "founders@genesisventures.com" },
-  { label: "Phone", value: "+1 (212) 555-0100" },
-  { label: "Office", value: "Kathmandu, Nepal" },
-];
 
 export default function Connect() {
   const [tab, setTab] = useState<Tab>("general");
@@ -51,7 +45,7 @@ export default function Connect() {
 
   return (
     <section className="contact-section relative w-full min-h-screen bg-white px-4 xs:px-6 sm:px-8 md:px-16 py-20 sm:py-24 md:py-28">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 sm:gap-12">
+      <div className="mx-auto flex w-full max-w-9xl flex-col gap-10 sm:gap-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex max-w-2xl flex-col gap-3">
             <span className="contact-heading text-xs uppercase tracking-[0.28em] text-genesis-blue font-[GT50]">
@@ -86,7 +80,16 @@ export default function Connect() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,1.8fr)_minmax(260px,0.9fr)] lg:gap-14">
+        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(280px,0.95fr)_minmax(0,1.35fr)] lg:gap-14">
+          <div className="relative min-h-60 overflow-hidden sm:min-h-75 lg:min-h-135">
+            <Image
+              src="/contact/cons.png"
+              alt="Contact Genesis Ventures"
+              fill
+              className="object-cover object-[50%_70%]"
+            />
+          </div>
+
           <div className="min-w-0">
             {tab === "general" ? (
               <form
@@ -208,24 +211,6 @@ export default function Connect() {
               </form>
             )}
           </div>
-
-          <aside className="flex flex-col justify-between border-t border-genesis-navy/10 pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10 xl:pl-12">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-8">
-              {contactDetails.map(({ label, value }) => (
-                <div
-                  key={label}
-                  className="flex flex-col gap-1.5 border-l border-genesis-navy/10 pl-4"
-                >
-                  <span className="text-[10px] uppercase tracking-widest text-gray-500 font-poppins">
-                    {label}
-                  </span>
-                  <span className="text-sm text-genesis-navy font-poppins">
-                    {value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </aside>
         </div>
       </div>
     </section>

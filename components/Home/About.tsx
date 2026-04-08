@@ -85,7 +85,7 @@ export default function About() {
         <div className="w-full md:w-1/2 flex flex-col gap-4 md:gap-6 md:justify-center">
           <HeroSectionTitle
             as="h2"
-            className="about-heading text-[clamp(1.25rem,4vw,2.5rem)] text-genesis-navy leading-snug font-[PPFONT]"
+            className="about-heading text-[clamp(1.5rem,4.6vw,3rem)] text-genesis-navy leading-[1.12] font-[PPFONT]"
             prefix="Integrity before"
             highlight="returns."
             suffix="Always."
@@ -93,7 +93,7 @@ export default function About() {
 
           <p
             id="animated-paragraph"
-            className="text-xs sm:text-sm text-gray-600 font-poppins leading-relaxed max-w-lg"
+            className="text-sm sm:text-base text-gray-600 font-poppins leading-8 max-w-2xl"
           >
             Genesis Ventures is an early-stage venture capital firm based in
             Kathmandu, partnering with ambitious founders from idea to scale. We
