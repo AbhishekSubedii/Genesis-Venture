@@ -19,18 +19,22 @@ interface Company {
 }
 
 interface SectorShowcaseBannerProps {
+  id: string;
   label: string;
   stat: {
     label: string;
     value: string | number;
   };
   companies: Company[];
+  img: string;
 }
 
 const SectorShowcaseBanner: React.FC<SectorShowcaseBannerProps> = ({
+  id,
   label,
   stat,
   companies,
+  img,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -77,12 +81,13 @@ const SectorShowcaseBanner: React.FC<SectorShowcaseBannerProps> = ({
 
   return (
     <section
+      id={id}
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#08112a] text-white min-h-screen lg:h-screen lg:min-h-[800px]"
     >
       <div className="absolute inset-0">
         <Image
-          src="/images/about/grow.png"
+          src={img}
           alt={`${label} Background`}
           fill
           className="object-cover object-center md:object-right opacity-60"
@@ -132,7 +137,7 @@ const SectorShowcaseBanner: React.FC<SectorShowcaseBannerProps> = ({
             {companies.slice(0, 4).map(({ name, description, year, stage }) => (
               <article
                 key={name}
-                className="group flex flex-col justify-between bg-white/10 p-5 backdrop-blur-md border border-white/5 transition-all hover:bg-white/5 cursor-pointer"
+                className="group flex flex-col justify-between bg-white/10 p-5 backdrop-blur-md border border-white/5 transition-all hover:bg-white/5 cursor-pointer max-w-xs"
               >
                 <div>
                   <div className="flex justify-between items-start mb-4">

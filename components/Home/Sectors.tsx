@@ -73,7 +73,7 @@ export default function Sectors() {
       ref={containerRef}
       className="w-full bg-white flex flex-col px-4 xs:px-6 sm:px-8 md:px-16 py-8 sm:py-12 md:py-24"
     >
-      <div className="flex items-start justify-between border-b border-gray-200">
+      <div className="flex items-start justify-between border-b border-gray-200 pb-3 sm:pb-4 md:pb-6">
         <span className="sectors-heading text-xs uppercase tracking-widest text-gray-500 font-poppins">
           Invested Sectors
         </span>

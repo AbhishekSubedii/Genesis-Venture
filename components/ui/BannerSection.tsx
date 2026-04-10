@@ -43,7 +43,7 @@ const BannerSection = ({ bgImage, title }: { bgImage: string, title: string }) =
         fill
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-[#08112a]/68" />
+      <div className="absolute inset-0 bg-genesis-navy/30" />
       <div className="relative z-10 flex h-full items-center justify-center px-6 text-center sm:px-10 md:px-16 lg:px-20">
         <div className="max-w-5xl -translate-y-8 sm:-translate-y-10 md:-translate-y-12">
           <h2 ref={titleRef} className="devider-title font-[PPFONT] text-[clamp(1.8rem,4.6vw,4.4rem)] leading-[1.18] text-white">

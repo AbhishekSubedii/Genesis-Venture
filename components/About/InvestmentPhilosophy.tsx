@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -13,24 +14,28 @@ const investmentPhilosophy = [
     title: "High-conviction investing",
     description:
       "We make fewer bets, but go deeper—committing time, capital, and network from day one.",
+    image: "/images/Projects/investing.webp"
   },
   {
     id: 2,
     title: "Founder-first approach",
     description:
       "We believe great companies are built by exceptional founders, prioritizing people.",
+    image: "/images/Projects/founder.webp"
   },
   {
     id: 3,
     title: "Sector-focused insight",
     description:
       "We invest in sectors where we have deep expertise and strong operational understanding.",
+    image: "/images/Projects/insight.webp"
   },
   {
     id: 4,
     title: "Long-term partnership",
     description:
       "We stay with our companies from inception to scale, supporting every stage of growth.",
+    image: "/images/Projects/partnership.webp"
   },
 ];
 
@@ -120,10 +125,10 @@ const InvestmentPhilosophy = () => {
       </div>
 
       <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-px bg-gray-200 flex-1">
-        {investmentPhilosophy.map(({ id, title, description }) => (
+        {investmentPhilosophy.map(({ id, title, image, description }) => (
           <div
             key={id}
-            className="relative bg-white flex flex-col justify-between p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:bg-genesis-navy/20 group"
+            className="relative bg-white flex flex-col p-4 sm:p-6 md:p-7 transition-all duration-300 hover:bg-genesis-navy/10 group overflow-hidden"
           >
             <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-genesis-red scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
 
@@ -133,7 +138,18 @@ const InvestmentPhilosophy = () => {
               {id}
             </span>
 
-            <div className="flex flex-col gap-1.5 sm:gap-2 mt-auto pt-6 sm:pt-8">
+            <div className="relative w-full aspect-4/3 overflow-hidden mt-3 sm:mt-4">
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 25vw"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/25 to-transparent" />
+            </div>
+
+            <div className="flex flex-col gap-1.5 sm:gap-2 pt-6 sm:pt-8">
               <div className="w-4 h-px bg-genesis-navy mb-2 sm:mb-3 transition-colors" />
               <span className="text-sm sm:text-base text-genesis-navy group-hover:text-genesis-red transition-colors font-[PPFONT]">
                 {title}
