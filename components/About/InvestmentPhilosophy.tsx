@@ -144,7 +144,7 @@ const InvestmentPhilosophy = () => {
                 alt={title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 25vw" l-to-t f
+                sizes="(max-width: 768px) 100vw, 25vw"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/25 to-transparent" />
             </div>
