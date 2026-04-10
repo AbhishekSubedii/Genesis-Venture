@@ -13,6 +13,7 @@ interface Company {
 }
 
 interface SectorShowcaseProps {
+  id: string;
   label: string;
   isReversed?: boolean;
   stat: {
@@ -20,14 +21,17 @@ interface SectorShowcaseProps {
     value: string | number;
   };
   companies: Company[];
+  img: string;
 }
 
 gsap.registerPlugin(SplitText, ScrollTrigger)
 const SectorShowcase: React.FC<SectorShowcaseProps> = ({
+  id,
   label,
   isReversed = false,
   stat,
   companies,
+  img,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -70,7 +74,6 @@ const SectorShowcase: React.FC<SectorShowcaseProps> = ({
       duration: 0.3,
     }, "<");
 
-    // Image animation (keep separate)
     gsap.from(imageRef.current, {
       scrollTrigger: {
         trigger: containerRef.current,
@@ -91,6 +94,7 @@ const SectorShowcase: React.FC<SectorShowcaseProps> = ({
 
   return (
     <section
+      id={id}
       ref={containerRef}
       className={`flex flex-col md:flex-${isReversed ? "row-reverse" : "row"
         } gap-0 items-stretch min-h-[70vh] py-10 lg:py-20`}
@@ -98,10 +102,10 @@ const SectorShowcase: React.FC<SectorShowcaseProps> = ({
       <div className="relative w-full md:w-1/2 h-[40vh] md:h-auto overflow-hidden group">
         <Image
           ref={imageRef}
-          src="/images/sectors.jpeg"
+          src={img}
           alt={label}
           fill
-          className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+          className="object-contain scale-105 group-hover:scale-100 transition-transform duration-700"
         />
       </div>
 

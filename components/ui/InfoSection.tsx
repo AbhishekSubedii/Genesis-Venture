@@ -63,7 +63,7 @@ const InfoSection = ({ title, description, button, link, image, variant = "defau
           src={image}
           alt={title}
           fill
-          className="object-cover"
+          className="object-contain scale-110"
         />
       </div>
     </div>

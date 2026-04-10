@@ -18,7 +18,7 @@ const reports = [
     description:
       "A comprehensive overview of our investment activities, portfolio performance, and key strategic milestones achieved throughout 2025. This report highlights fund growth, major partnerships, and insights into how our long-term vision continues to drive sustainable value creation across diverse markets.",
     badge: "2025",
-    image: "/images/relations/reports.jpeg"
+    image: "/images/report.png"
   },
   {
     id: 2,
@@ -94,21 +94,21 @@ const ReportsAndUpdates = () => {
         description="A comprehensive overview of our investment activities, portfolio performance, and key strategic milestones achieved throughout 2025. This report highlights fund growth, major partnerships, and insights into how our long-term vision continues to drive sustainable value creation across diverse markets."
         button="DOWNLOAD PDF"
         link="/About"
-        image="/images/relations/performance.png"
+        image="/images/relations/report.png"
       />
 
-      <BannerSection bgImage="/images/relations/performance.png" title="Performance you can measure. Strategy you can trust" />
+      <BannerSection bgImage="/images/relations/reports.jpeg" title="Performance you can measure. Strategy you can trust" />
 
       <InfoSection
         title="Portfolio Overview"
         description="An in-depth snapshot of our global portfolio, showcasing companies across various stages, industries, and regions. This overview highlights operational progress, innovation milestones, and the collective impact of our investments across 12 countries."
         button="DOWNLOAD PDF"
         link="/About"
-        image="/images/relations/portfolio.png"
+        image="/images/relations/portfolio-img.png"
         variant="reversed"
       />
 
-      <BannerSection bgImage="/images/grow.png" title="Guiding investment decisions through market insight" />
+      <BannerSection bgImage="/images/relations/growth.jpeg" title="Guiding investment decisions through market insight" />
 
     </section >
   );
